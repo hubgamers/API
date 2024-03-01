@@ -1,5 +1,8 @@
 package com.hubgamers.api.model;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class SocialMedia {
 	public String website;
 	

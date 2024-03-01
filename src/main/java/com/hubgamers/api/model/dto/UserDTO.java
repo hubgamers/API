@@ -1,16 +1,14 @@
-package com.hubgamers.api.model;
+package com.hubgamers.api.model.dto;
 
+import com.hubgamers.api.model.Role;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-@Document(collection = "users")
-public class User {
-	
+public class UserDTO {
 	public String id;
 	
 	public String username;

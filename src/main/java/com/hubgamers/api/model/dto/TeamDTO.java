@@ -1,15 +1,16 @@
-package com.hubgamers.api.model;
+package com.hubgamers.api.model.dto;
 
+import com.hubgamers.api.model.Player;
+import com.hubgamers.api.model.Region;
+import com.hubgamers.api.model.SocialMedia;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-@Document(collection = "teams")
-public class Team {
+public class TeamDTO {
 	public String id;
 	
 	public String name;

@@ -1,18 +1,19 @@
-package com.hubgamers.api.model;
+package com.hubgamers.api.model.dto;
 
+import com.hubgamers.api.model.Region;
+import com.hubgamers.api.model.SocialMedia;
+import com.hubgamers.api.model.TournamentType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
-@Document(collection = "teams")
-public class Team {
+public class TournamentDTO {
 	public String id;
 	
 	public String name;
+	
+	public TournamentType type;
 	
 	public String description;
 	
@@ -21,8 +22,6 @@ public class Team {
 	public String platform;
 	
 	public Region region;
-	
-	public List<Player> players;
 	
 	public String organizerId;
 	
