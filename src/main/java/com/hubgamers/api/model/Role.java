@@ -4,5 +4,5 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public enum Role {
-	ORGANIZER, PLAYER, ADMIN
+	USER, ORGANIZER, PLAYER, ADMIN
 }

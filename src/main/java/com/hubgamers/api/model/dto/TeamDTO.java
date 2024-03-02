@@ -3,6 +3,7 @@ package com.hubgamers.api.model.dto;
 import com.hubgamers.api.model.Player;
 import com.hubgamers.api.model.Region;
 import com.hubgamers.api.model.SocialMedia;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,18 +14,23 @@ import java.util.List;
 public class TeamDTO {
 	public String id;
 	
+	@NotBlank
 	public String name;
 	
 	public String description;
 	
+	@NotBlank
 	public String game;
 	
+	@NotBlank
 	public String platform;
 	
+	@NotBlank
 	public Region region;
 	
 	public List<Player> players;
 	
+	@NotBlank
 	public String organizerId;
 	
 	public String logo;

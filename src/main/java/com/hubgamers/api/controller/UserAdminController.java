@@ -1,0 +1,46 @@
+package com.hubgamers.api.controller;
+
+import com.hubgamers.api.model.User;
+import com.hubgamers.api.model.dto.UserDTO;
+import com.hubgamers.api.response.ResponseJson;
+import com.hubgamers.api.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("api/admin/user")
+public class UserAdminController {
+	
+	private final UserService userService;
+	
+	public UserAdminController(UserService userService) {
+		this.userService = userService;
+	}
+	
+	@GetMapping("/all")
+	public ResponseJson<List<User>> getAllUsers() {
+		return new ResponseJson<>(userService.getAllUsers(), HttpStatus.OK.value());
+	}
+	
+	@GetMapping("/username/{username}")
+	public ResponseJson<User> getUserByUsername(@PathVariable String username) {
+		return new ResponseJson<>(userService.getUserByUsername(username), HttpStatus.OK.value());
+	}
+	
+	@PostMapping("/create")
+	public ResponseJson<User> createUser(@RequestBody UserDTO userDTO) {
+		return new ResponseJson<>(userService.createUser(userDTO), HttpStatus.CREATED.value());
+	}
+	
+	@PutMapping("/update")
+	public ResponseJson<User> updateUser(@RequestBody UserDTO userDTO) {
+		return new ResponseJson<>(userService.updateUser(userDTO), HttpStatus.OK.value());
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public void deleteUser(String id) {
+		userService.deleteUser(id);
+	}
+}

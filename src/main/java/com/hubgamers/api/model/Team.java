@@ -4,12 +4,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Id;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @Document(collection = "teams")
 public class Team {
+	@Id
 	public String id;
 	
 	public String name;

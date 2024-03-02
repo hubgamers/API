@@ -59,6 +59,7 @@ public class JwtService {
 	
 	
 	public String generateToken(String userName){
+		System.out.println("Generating token for user: " + userName);
 		Map<String,Object> claims=new HashMap<>();
 		return createToken(claims,userName);
 	}
@@ -73,6 +74,7 @@ public class JwtService {
 	}
 	
 	public String createRefreshToken() {
+		System.out.println("Generating refresh token");
 		return generateRandomWords(3).toString();
 	}
 	
