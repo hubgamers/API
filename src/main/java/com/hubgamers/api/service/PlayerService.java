@@ -23,6 +23,10 @@ public class PlayerService {
 	public PlayerService(PlayerRepository playerRepository) {
 		this.playerRepository = playerRepository;
 	}
+
+	public List<String> getColumns() {
+		return playerMapper.getColumns();
+	}
 	
 	public List<Player> getAllPlayers() {
 		return playerRepository.findAll();

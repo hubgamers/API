@@ -5,6 +5,7 @@ import com.hubgamers.api.model.dto.TournamentDTO;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,5 +62,15 @@ public class TournamentMapper implements MapperInstance<TournamentDTO, Tournamen
 			tournamentList.add(toEntity(d));
 		});
 		return tournamentList;
+	}
+
+	@Override
+	public List<String> getColumns() {
+		List<String> proprietes = new ArrayList<>();
+		Field[] champs = Tournament.class.getDeclaredFields();
+		for (Field champ : champs) {
+			proprietes.add(champ.getName());
+		}
+		return proprietes;
 	}
 }

@@ -5,6 +5,7 @@ import com.hubgamers.api.model.dto.UserDTO;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,5 +51,15 @@ public class UserMapper implements MapperInstance<UserDTO, User>{
 			userList.add(toEntity(d));
 		});
 		return userList;
+	}
+
+	@Override
+	public List<String> getColumns() {
+		List<String> proprietes = new ArrayList<>();
+		Field[] champs = User.class.getDeclaredFields();
+		for (Field champ : champs) {
+			proprietes.add(champ.getName());
+		}
+		return proprietes;
 	}
 }

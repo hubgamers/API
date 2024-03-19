@@ -11,4 +11,6 @@ public interface MapperInstance <D, E> {
 	public E toEntity(D dto);
 	
 	public List<E> toEntity(List<D> dtoList);
+
+	public List<String> getColumns();
 }

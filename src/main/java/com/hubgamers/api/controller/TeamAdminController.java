@@ -19,6 +19,11 @@ public class TeamAdminController {
 		this.teamService = teamService;
 	}
 	
+	@GetMapping("/columns")
+	public ResponseJson<List<String>> getColumns() {
+		return new ResponseJson<>(teamService.getColumns(), HttpStatus.OK.value());
+	}
+	
 	@GetMapping("/all")
 	public ResponseJson<List<Team>> getAllTeams() {
 		return new ResponseJson<>(teamService.getAllTeams(), HttpStatus.OK.value());

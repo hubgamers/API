@@ -22,6 +22,10 @@ public class TournamentService {
 	public TournamentService(TournamentRepository tournamentRepository) {
 		this.tournamentRepository = tournamentRepository;
 	}
+
+	public List<String> getColumns() {
+		return tournamentMapper.getColumns();
+	}
 	
 	public List<Tournament> getAllTournaments() {
 		return tournamentRepository.findAll();

@@ -18,6 +18,11 @@ public class UserAdminController {
 	public UserAdminController(UserService userService) {
 		this.userService = userService;
 	}
+
+	@GetMapping("/columns")
+	public ResponseJson<List<String>> getColumns() {
+		return new ResponseJson<>(userService.getColumns(), HttpStatus.OK.value());
+	}
 	
 	@GetMapping("/all")
 	public ResponseJson<List<User>> getAllUsers() {

@@ -19,6 +19,11 @@ public class PlayerAdminController {
 	public PlayerAdminController(PlayerService playerService) {
 		this.playerService = playerService;
 	}
+
+	@GetMapping("/columns")
+	public ResponseJson<List<String>> getColumns() {
+		return new ResponseJson<>(playerService.getColumns(), HttpStatus.OK.value());
+	}
 	
 	@GetMapping("/all")
 	public ResponseJson<List<Player>> getAllPlayers() {

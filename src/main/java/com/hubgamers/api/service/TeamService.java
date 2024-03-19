@@ -21,6 +21,10 @@ public class TeamService {
 		this.teamRepository = teamRepository;
 	}
 	
+	public List<String> getColumns() {
+		return teamMapper.getColumns();
+	}
+	
 	public List<Team> getAllTeams() {
 		return teamRepository.findAll();
 	}

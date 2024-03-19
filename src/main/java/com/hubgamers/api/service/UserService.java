@@ -20,6 +20,10 @@ public class UserService {
 	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
+
+	public List<String> getColumns() {
+		return userMapper.getColumns();
+	}
 	
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
