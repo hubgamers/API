@@ -5,6 +5,7 @@ import com.hubgamers.api.model.Team;
 import com.hubgamers.api.model.User;
 import com.hubgamers.api.model.dto.UserDTO;
 import com.hubgamers.api.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,17 @@ public class UserService {
 
 	public List<String> getColumns() {
 		return userMapper.getColumns();
+	}
+
+	public User getUserConnected() {
+		UserDetails userDetails = (UserDetails) org.springframework.security.core.context.SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
+		Optional<User> user = userRepository.findByUsername(userDetails.getUsername());
+		if (user.isPresent()) {
+			return user.get();
+		} else {
+			throw new RuntimeException("User not found");
+		}
 	}
 	
 	public List<User> getAllUsers() {

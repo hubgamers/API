@@ -4,6 +4,8 @@ import com.hubgamers.api.mapper.TeamMapper;
 import com.hubgamers.api.model.Team;
 import com.hubgamers.api.model.dto.TeamDTO;
 import com.hubgamers.api.repository.TeamRepository;
+import org.apache.catalina.security.SecurityUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +16,9 @@ public class TeamService {
 	private final TeamRepository teamRepository;
 	
 	private final TeamMapper teamMapper = new TeamMapper();
-	
-	UserService userService;
+
+	@Autowired
+	private UserService userService;
 	
 	public TeamService(TeamRepository teamRepository) {
 		this.teamRepository = teamRepository;
@@ -42,6 +45,7 @@ public class TeamService {
 	}
 	
 	public Team createTeam(TeamDTO teamDTO) {
+		teamDTO.setOrganizerId(userService.getUserConnected().getId());
 		return teamRepository.save(teamMapper.toEntity(teamDTO));
 	}
 	

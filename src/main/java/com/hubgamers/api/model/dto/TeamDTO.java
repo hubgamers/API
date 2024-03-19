@@ -25,7 +25,7 @@ public class TeamDTO {
 	@NotBlank
 	public String platform;
 	
-	@NotBlank
+//	@NotBlank
 	public Region region;
 	
 	public List<Player> players;

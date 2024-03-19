@@ -11,55 +11,25 @@ import java.util.List;
 
 @Component
 @Mapper(componentModel = "spring")
-public class UserMapper implements MapperInstance<UserDTO, User>{
-	
+public class UserMapper implements com.hubgamers.api.mapper.Mapper<User, UserDTO> {
+
 	@Override
-	public UserDTO toDTO(User entity) {
-		UserDTO userDTO = new UserDTO();
-		userDTO.setId(entity.getId());
-		userDTO.setEmail(entity.getEmail());
-		userDTO.setUsername(entity.getUsername());
-		userDTO.setPassword(entity.getPassword());
-		userDTO.setRoles(entity.getRoles());
-		return userDTO;
+	public Class<User> getEntityClass() {
+		return User.class;
 	}
-	
+
 	@Override
-	public List<UserDTO> toDTO(List<User> entityList) {
-		List<UserDTO> userDTOList = new ArrayList<>();
-		entityList.forEach(e -> {
-			userDTOList.add(toDTO(e));
-		});
-		return userDTOList;
-	}
-	
-	@Override
-	public User toEntity(UserDTO dto) {
-		User user = new User();
-		user.setId(dto.getId());
-		user.setEmail(dto.getEmail());
-		user.setUsername(dto.getUsername());
-		user.setPassword(dto.getPassword());
-		user.setRoles(dto.getRoles());
-		return user;
-	}
-	
-	@Override
-	public List<User> toEntity(List<UserDTO> dtoList) {
-		List<User> userList = new ArrayList<>();
-		dtoList.forEach(d -> {
-			userList.add(toEntity(d));
-		});
-		return userList;
+	public Class<UserDTO> getDTOClass() {
+		return UserDTO.class;
 	}
 
 	@Override
 	public List<String> getColumns() {
-		List<String> proprietes = new ArrayList<>();
+		List<String> proprieties = new ArrayList<>();
 		Field[] champs = User.class.getDeclaredFields();
 		for (Field champ : champs) {
-			proprietes.add(champ.getName());
+			proprieties.add(champ.getName());
 		}
-		return proprietes;
+		return proprieties;
 	}
 }

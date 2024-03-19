@@ -11,51 +11,25 @@ import java.util.List;
 
 @Component
 @Mapper(componentModel = "spring")
-public class PlayerMapper implements MapperInstance<PlayerDTO, Player>{
-	
+public class PlayerMapper implements com.hubgamers.api.mapper.Mapper<Player, PlayerDTO> {
+
 	@Override
-	public PlayerDTO toDTO(Player entity) {
-		PlayerDTO playerDTO = new PlayerDTO();
-		playerDTO.setId(entity.getId());
-		playerDTO.setUsername(entity.getUsername());
-		playerDTO.setUserId(entity.getUserId());
-		return playerDTO;
+	public Class<Player> getEntityClass() {
+		return Player.class;
 	}
-	
+
 	@Override
-	public List<PlayerDTO> toDTO(List<Player> entityList) {
-		List<PlayerDTO> playerDTOList = new ArrayList<>();
-		entityList.forEach(e -> {
-			playerDTOList.add(toDTO(e));
-		});
-		return playerDTOList;
-	}
-	
-	@Override
-	public Player toEntity(PlayerDTO dto) {
-		Player player = new Player();
-		player.setId(dto.getId());
-		player.setUsername(dto.getUsername());
-		player.setUserId(dto.getUserId());
-		return player;
-	}
-	
-	@Override
-	public List<Player> toEntity(List<PlayerDTO> dtoList) {
-		List<Player> playerList = new ArrayList<>();
-		dtoList.forEach(d -> {
-			playerList.add(toEntity(d));
-		});
-		return playerList;
+	public Class<PlayerDTO> getDTOClass() {
+		return PlayerDTO.class;
 	}
 
 	@Override
 	public List<String> getColumns() {
-		List<String> proprietes = new ArrayList<>();
+		List<String> proprieties = new ArrayList<>();
 		Field[] champs = Player.class.getDeclaredFields();
 		for (Field champ : champs) {
-			proprietes.add(champ.getName());
+			proprieties.add(champ.getName());
 		}
-		return proprietes;
+		return proprieties;
 	}
 }
