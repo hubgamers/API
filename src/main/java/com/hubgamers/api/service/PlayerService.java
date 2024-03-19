@@ -24,6 +24,10 @@ public class PlayerService {
 		this.playerRepository = playerRepository;
 	}
 
+	public List<String> getAdminColumns() {
+		return playerMapper.getAdminColumns();
+	}
+
 	public List<String> getColumns() {
 		return playerMapper.getColumns();
 	}

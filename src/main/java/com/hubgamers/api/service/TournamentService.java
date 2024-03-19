@@ -23,6 +23,10 @@ public class TournamentService {
 		this.tournamentRepository = tournamentRepository;
 	}
 
+	public List<String> getAdminColumns() {
+		return tournamentMapper.getAdminColumns();
+	}
+
 	public List<String> getColumns() {
 		return tournamentMapper.getColumns();
 	}

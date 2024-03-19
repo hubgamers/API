@@ -24,6 +24,8 @@ public interface Mapper<E, D> {
 
     Class<D> getDTOClass();
     
+    List<String> getAdminColumns();
+    
     List<String> getColumns();
 }
 

@@ -28,7 +28,7 @@ public class TeamDTO {
 //	@NotBlank
 	public Region region;
 	
-	public List<Player> players;
+	public List<PlayerDTO> players;
 	
 	@NotBlank
 	public String organizerId;

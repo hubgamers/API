@@ -12,6 +12,8 @@ import java.util.List;
 @Component
 @Mapper(componentModel = "spring")
 public class UserMapper implements com.hubgamers.api.mapper.Mapper<User, UserDTO> {
+	private final List<String> IGNORE_FIELDS = List.of("id", "password");
+	
 
 	@Override
 	public Class<User> getEntityClass() {
@@ -24,11 +26,23 @@ public class UserMapper implements com.hubgamers.api.mapper.Mapper<User, UserDTO
 	}
 
 	@Override
-	public List<String> getColumns() {
+	public List<String> getAdminColumns() {
 		List<String> proprieties = new ArrayList<>();
 		Field[] champs = User.class.getDeclaredFields();
 		for (Field champ : champs) {
 			proprieties.add(champ.getName());
+		}
+		return proprieties;
+	}
+
+	@Override
+	public List<String> getColumns() {
+		List<String> proprieties = new ArrayList<>();
+		Field[] champs = User.class.getDeclaredFields();
+		for (Field champ : champs) {
+			if (!IGNORE_FIELDS.contains(champ.getName())) {
+				proprieties.add(champ.getName());
+			}
 		}
 		return proprieties;
 	}

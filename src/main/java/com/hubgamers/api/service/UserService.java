@@ -22,6 +22,10 @@ public class UserService {
 		this.userRepository = userRepository;
 	}
 
+	public List<String> getAdminColumns() {
+		return userMapper.getAdminColumns();
+	}
+
 	public List<String> getColumns() {
 		return userMapper.getColumns();
 	}
