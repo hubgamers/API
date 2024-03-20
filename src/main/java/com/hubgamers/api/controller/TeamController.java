@@ -56,6 +56,11 @@ public class TeamController {
 		return new ResponseJson<>(teamService.uploadBanner(id, file), HttpStatus.OK.value());
 	}
 	
+	@PostMapping("/logo/upload/{id}")
+	public ResponseJson<Team> uploadLogo(@PathVariable String id, @RequestParam("file") MultipartFile file) {
+		return new ResponseJson<>(teamService.uploadLogo(id, file), HttpStatus.OK.value());
+	}
+	
 	@PutMapping("/update")
 	public ResponseJson<Team> updateTeam(@RequestBody TeamDTO teamDTO) throws AccountNotFoundException {
 		return new ResponseJson<>(teamService.updateTeam(teamDTO), HttpStatus.OK.value());
