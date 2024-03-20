@@ -21,27 +21,12 @@ public class UserAdminController {
 
 	@GetMapping("/columns")
 	public ResponseJson<List<String>> getColumns() {
-		return new ResponseJson<>(userService.getColumns(), HttpStatus.OK.value());
-	}
-	
-	@GetMapping("/all")
-	public ResponseJson<List<User>> getAllUsers() {
-		return new ResponseJson<>(userService.getAllUsers(), HttpStatus.OK.value());
-	}
-	
-	@GetMapping("/username/{username}")
-	public ResponseJson<User> getUserByUsername(@PathVariable String username) {
-		return new ResponseJson<>(userService.getUserByUsername(username), HttpStatus.OK.value());
+		return new ResponseJson<>(userService.getAdminColumns(), HttpStatus.OK.value());
 	}
 	
 	@PostMapping("/create")
 	public ResponseJson<User> createUser(@RequestBody UserDTO userDTO) {
 		return new ResponseJson<>(userService.createUser(userDTO), HttpStatus.CREATED.value());
-	}
-	
-	@PutMapping("/update")
-	public ResponseJson<User> updateUser(@RequestBody UserDTO userDTO) {
-		return new ResponseJson<>(userService.updateUser(userDTO), HttpStatus.OK.value());
 	}
 	
 	@DeleteMapping("/delete/{id}")

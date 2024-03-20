@@ -6,6 +6,7 @@ import com.hubgamers.api.response.ResponseJson;
 import com.hubgamers.api.service.TeamService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;
@@ -48,6 +49,11 @@ public class TeamController {
 	@PostMapping("/create")
 	public ResponseJson<Team> createTeam(@RequestBody TeamDTO teamDTO) {
 		return new ResponseJson<>(teamService.createTeam(teamDTO), HttpStatus.CREATED.value());
+	}
+	
+	@PostMapping("/banner/upload/{id}")
+	public ResponseJson<Team> uploadBanner(@PathVariable String id, @RequestParam("file") MultipartFile file) {
+		return new ResponseJson<>(teamService.uploadBanner(id, file), HttpStatus.OK.value());
 	}
 	
 	@PutMapping("/update")

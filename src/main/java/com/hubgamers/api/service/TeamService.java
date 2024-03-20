@@ -1,5 +1,7 @@
 package com.hubgamers.api.service;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.hubgamers.api.mapper.PlayerMapper;
 import com.hubgamers.api.mapper.TeamMapper;
 import com.hubgamers.api.model.Player;
@@ -7,12 +9,17 @@ import com.hubgamers.api.model.Team;
 import com.hubgamers.api.model.dto.PlayerDTO;
 import com.hubgamers.api.model.dto.TeamDTO;
 import com.hubgamers.api.repository.TeamRepository;
-import org.apache.catalina.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TeamService {
@@ -29,6 +36,9 @@ public class TeamService {
 	
 	@Autowired
 	private PlayerMapper playerMapper;
+
+	@Autowired
+	private Environment environment;
 	
 	public TeamService(TeamRepository teamRepository) {
 		this.teamRepository = teamRepository;
@@ -61,6 +71,28 @@ public class TeamService {
 	public Team createTeam(TeamDTO teamDTO) {
 		teamDTO.setOrganizerId(userService.getUserConnected().getId());
 		return teamRepository.save(teamMapper.toEntity(teamDTO));
+	}
+	
+	public Team uploadBanner(String id, MultipartFile file) {
+		Team team = getTeamById(id);
+		if (team == null) {
+			throw new RuntimeException("Team not found");
+		}
+		Map params = ObjectUtils.asMap(
+				"folder", "hubgamers/banner",
+				"use_filename", false,
+				"unique_filename", true,
+				"overwrite", true
+		);
+		Cloudinary cloudinary = new Cloudinary(environment.getProperty("cloudinary_url"));
+		Map upload;
+		try {
+			upload = cloudinary.uploader().upload(file.getBytes(), params);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		team.setBanner(upload.get("url").toString());
+		return teamRepository.save(team);
 	}
 	
 	public Team updateTeam(TeamDTO teamDTO) throws AccountNotFoundException {
