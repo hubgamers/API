@@ -5,6 +5,7 @@ import com.hubgamers.api.response.ResponseJson;
 import com.hubgamers.api.service.TournamentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -36,6 +37,16 @@ public class TournamentController {
     @PostMapping("/create")
     public ResponseJson<Tournament> createTournament(@RequestBody Tournament tournament) {
         return new ResponseJson<>(tournamentService.createTournament(tournament), HttpStatus.CREATED.value());
+    }
+    
+    @PostMapping("/banner/upload/{id}")
+    public ResponseJson<Tournament> uploadBanner(@PathVariable String id, @RequestParam("file") MultipartFile file) {
+        return new ResponseJson<>(tournamentService.uploadBanner(id, file), HttpStatus.OK.value());
+    }
+    
+    @PostMapping("/logo/upload/{id}")
+    public ResponseJson<Tournament> uploadLogo(@PathVariable String id, @RequestParam("file") MultipartFile file) {
+        return new ResponseJson<>(tournamentService.uploadLogo(id, file), HttpStatus.OK.value());
     }
     
     @PutMapping("/update")

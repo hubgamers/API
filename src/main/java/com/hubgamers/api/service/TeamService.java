@@ -1,6 +1,5 @@
 package com.hubgamers.api.service;
 
-import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.hubgamers.api.mapper.PlayerMapper;
 import com.hubgamers.api.mapper.TeamMapper;
@@ -10,15 +9,10 @@ import com.hubgamers.api.model.dto.PlayerDTO;
 import com.hubgamers.api.model.dto.TeamDTO;
 import com.hubgamers.api.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.env.Environment;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.security.auth.login.AccountNotFoundException;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
