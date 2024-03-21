@@ -33,4 +33,6 @@ public class Team {
 	public String banner;
 	
 	public SocialMedia socialMedia;
+	
+	public List<Invitation> invitations;
 }

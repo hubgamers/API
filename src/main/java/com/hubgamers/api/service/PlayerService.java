@@ -2,7 +2,6 @@ package com.hubgamers.api.service;
 
 import com.hubgamers.api.mapper.PlayerMapper;
 import com.hubgamers.api.model.Player;
-import com.hubgamers.api.model.User;
 import com.hubgamers.api.model.dto.PlayerDTO;
 import com.hubgamers.api.repository.PlayerRepository;
 import org.springframework.stereotype.Service;
