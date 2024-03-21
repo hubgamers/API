@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 public class PlayerDTO {
 	public String id;
 	
-//	@NotBlank
+	@NotBlank
 	public String username;
 	
-//	@NotBlank
+	@NotBlank
 	public String userId;
 }
