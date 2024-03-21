@@ -1,11 +1,13 @@
 package com.hubgamers.api.model;
 
+import com.hubgamers.api.model.dto.ParticipantDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,7 +24,11 @@ public class Tournament {
 	
 	public LocalDateTime endDate;
 	
+	public List<ParticipantDTO> participantDTOS;
+	
 	public String description;
+	
+	public String rules;
 	
 	public String game;
 	

@@ -1,5 +1,6 @@
 package com.hubgamers.api.controller;
 
+import com.hubgamers.api.model.dto.ParticipantDTO;
 import com.hubgamers.api.model.Tournament;
 import com.hubgamers.api.response.ResponseJson;
 import com.hubgamers.api.service.TournamentService;
@@ -32,6 +33,11 @@ public class TournamentController {
     @GetMapping("/id/{id}")
     public ResponseJson<Tournament> getTournamentById(@PathVariable String id) {
         return new ResponseJson<>(tournamentService.getTournamentById(id), HttpStatus.OK.value());
+    }
+    
+    @PostMapping("/addParticipant/{id}")
+    public ResponseJson<Tournament> addParticipant(@PathVariable String id, @RequestBody ParticipantDTO participantDTO) {
+        return new ResponseJson<>(tournamentService.addParticipant(id, participantDTO), HttpStatus.OK.value());
     }
     
     @PostMapping("/create")

@@ -2,6 +2,7 @@ package com.hubgamers.api.service;
 
 import com.cloudinary.utils.ObjectUtils;
 import com.hubgamers.api.mapper.TournamentMapper;
+import com.hubgamers.api.model.dto.ParticipantDTO;
 import com.hubgamers.api.model.Tournament;
 import com.hubgamers.api.repository.TournamentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,18 @@ public class TournamentService {
 	}
 	
 	public Tournament createTournament(Tournament tournament) {
+		return tournamentRepository.save(tournament);
+	}
+	
+	public Tournament addParticipant(String id, ParticipantDTO participantDTO) {
+		Tournament tournament = getTournamentById(id);
+		if (tournament == null) {
+			throw new RuntimeException("Tournament not found");
+		}
+		if (participantDTO.getPlayer() == null && participantDTO.getTeam() == null) {
+			throw new RuntimeException("Team or player is required");
+		}
+		tournament.getParticipantDTOS().add(participantDTO);
 		return tournamentRepository.save(tournament);
 	}
 	

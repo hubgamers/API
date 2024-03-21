@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -25,8 +26,12 @@ public class TournamentDTO {
 
 	@NotBlank
 	public LocalDateTime endDate;
+
+	public List<ParticipantDTO> participantDTOS;
 	
 	public String description;
+
+	public String rules;
 	
 	@NotBlank
 	public String game;
