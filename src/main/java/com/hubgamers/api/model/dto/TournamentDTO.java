@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 public class TournamentDTO {
@@ -17,6 +19,12 @@ public class TournamentDTO {
 	
 	@NotBlank
 	public TournamentType type;
+
+	@NotBlank
+	public LocalDateTime startDate;
+
+	@NotBlank
+	public LocalDateTime endDate;
 	
 	public String description;
 	

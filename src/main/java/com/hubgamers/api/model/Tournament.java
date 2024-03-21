@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -16,6 +17,10 @@ public class Tournament {
 	public String name;
 	
 	public TournamentType type;
+	
+	public LocalDateTime startDate;
+	
+	public LocalDateTime endDate;
 	
 	public String description;
 	
