@@ -1,9 +1,11 @@
 package com.hubgamers.api.controller;
 
 import com.hubgamers.api.model.Team;
+import com.hubgamers.api.model.User;
 import com.hubgamers.api.model.dto.TeamDTO;
 import com.hubgamers.api.response.ResponseJson;
 import com.hubgamers.api.service.TeamService;
+import com.hubgamers.api.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,8 +19,11 @@ public class TeamController {
 	
 	private final TeamService teamService;
 	
-	public TeamController(TeamService teamService) {
+	private UserService userService;
+	
+	public TeamController(TeamService teamService, UserService userService) {
 		this.teamService = teamService;
+		this.userService = userService;
 	}
 	
 	@GetMapping("/columns")
@@ -29,6 +34,16 @@ public class TeamController {
 	@GetMapping("/all")
 	public ResponseJson<List<Team>> getAllTeams() {
 		return new ResponseJson<>(teamService.getAllTeams(), HttpStatus.OK.value());
+	}
+	
+	@GetMapping("/all/name/{name}")
+	public ResponseJson<List<Team>> getAllTeamNames(@PathVariable String name) {
+		return new ResponseJson<>(teamService.getAllTeamNames(name), HttpStatus.OK.value());
+	}
+	
+	@GetMapping("/my-teams")
+	public ResponseJson<List<Team>> getMyTeams() {
+		return new ResponseJson<>(teamService.getMyTeams(userService.getUserConnected().getId()), HttpStatus.OK.value());
 	}
 	
 	@GetMapping("/name/{name}")

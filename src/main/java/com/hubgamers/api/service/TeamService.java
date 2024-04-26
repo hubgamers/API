@@ -51,6 +51,14 @@ public class TeamService {
 		return teamRepository.findAll();
 	}
 	
+	public List<Team> getAllTeamNames(String name) {
+		return teamRepository.findAllByName(name);
+	}
+	
+	public List<Team> getMyTeams(String organizerId) {
+		return teamRepository.findAllByOrganizerId(organizerId);
+	}
+	
 	public Team getTeamById(String id) {
 		return teamRepository.findById(id).orElse(null);
 	}
