@@ -7,6 +7,7 @@ import com.hubgamers.api.service.InvitationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;
 
 @RestController
@@ -34,6 +35,11 @@ public class InvitationController {
         return new ResponseJson<>(invitationService.getAllByTeamId(teamId), HttpStatus.OK.value());
     }
     
+    @GetMapping("/allByPlayerId/{playerId}")
+    public ResponseJson<List<Invitation>> getAllByPlayerId(@PathVariable String playerId) {
+        return new ResponseJson<>(invitationService.getAllByPlayerId(playerId), HttpStatus.OK.value());
+    }
+    
     @GetMapping("/allJoinByTeamId/{teamId}")
     public ResponseJson<List<Invitation>> getAllJoinInvitationByTeamId(@PathVariable String teamId) {
         return new ResponseJson<>(invitationService.getAllJoinInvitationByTeamId(teamId), HttpStatus.OK.value());
@@ -57,6 +63,16 @@ public class InvitationController {
     @PutMapping("/update")
     public ResponseJson<Invitation> updateInvitation(@RequestBody InvitationDTO invitationDTO) {
         return new ResponseJson<>(invitationService.createInvitation(invitationDTO), HttpStatus.OK.value());
+    }
+    
+    @PostMapping("/accept/{id}")
+    public ResponseJson<Invitation> acceptInvitation(@PathVariable String id) throws AccountNotFoundException {
+        return new ResponseJson<>(invitationService.acceptInvitation(id), HttpStatus.OK.value());
+    }
+    
+    @PostMapping("/decline/{id}")
+    public ResponseJson<Invitation> declineInvitation(@PathVariable String id) {
+        return new ResponseJson<>(invitationService.declineInvitation(id), HttpStatus.OK.value());
     }
     
     @DeleteMapping("/delete/{id}")

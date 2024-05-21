@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -24,7 +25,7 @@ public class Team {
 	
 	public Region region;
 	
-	public List<Player> players;
+	public List<Player> players = new ArrayList<>();
 	
 	public String organizerId;
 	

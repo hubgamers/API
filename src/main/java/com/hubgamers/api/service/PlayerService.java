@@ -45,6 +45,14 @@ public class PlayerService {
 		return optionalPlayer.get();
 	}
 	
+	public Player getPlayerByUserId(String userId) throws AccountNotFoundException {
+		Optional<Player> optionalPlayer = Optional.ofNullable(playerRepository.findByUserId(userId));
+		if (optionalPlayer.isEmpty()) {
+			throw new AccountNotFoundException("Player not found");
+		}
+		return optionalPlayer.get();
+	}
+	
 	public Player getPlayerByUsername(String username) {
 		return playerRepository.findByUserId(userService.getUserByUsername(username).getId());
 	}
