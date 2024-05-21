@@ -52,7 +52,7 @@ public class TeamService {
 	}
 	
 	public List<Team> getAllTeamNames(String name) {
-		return teamRepository.findAllByName(name);
+		return teamRepository.findAllByNameLike(name);
 	}
 	
 	public List<Team> getMyTeams(String organizerId) {
