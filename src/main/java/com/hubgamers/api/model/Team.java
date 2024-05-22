@@ -19,6 +19,8 @@ public class Team {
 	
 	public String description;
 	
+	public PaidType paidType;
+	
 	public String game;
 	
 	public String platform;
@@ -36,4 +38,8 @@ public class Team {
 	public SocialMedia socialMedia;
 	
 	public List<Invitation> invitations;
+	
+	public enum PaidType {
+		FREE, PREMIUM
+	}
 }
