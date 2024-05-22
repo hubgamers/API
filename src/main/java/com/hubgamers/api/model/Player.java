@@ -18,4 +18,16 @@ public class Player {
 	public String username;
 	
 	public String userId;
+	
+	/**
+	 * Un participant de tournoi soit une équipe ou un joueur
+	 */
+	@Data
+	@NoArgsConstructor
+	public static class Participant {
+		
+		public Team team;
+		
+		public Player player;
+	}
 }

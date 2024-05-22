@@ -1,12 +1,12 @@
 package com.hubgamers.api.model;
 
-import com.hubgamers.api.model.dto.ParticipantDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -24,7 +24,7 @@ public class Tournament {
 	
 	public LocalDateTime endDate;
 	
-	public List<ParticipantDTO> participantDTOS;
+	public List<Player.Participant> participants = new ArrayList<>();
 	
 	public String description;
 	
