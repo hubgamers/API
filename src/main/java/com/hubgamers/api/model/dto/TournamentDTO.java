@@ -1,5 +1,6 @@
 package com.hubgamers.api.model.dto;
 
+import com.hubgamers.api.model.Player;
 import com.hubgamers.api.model.Region;
 import com.hubgamers.api.model.SocialMedia;
 import com.hubgamers.api.model.TournamentType;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -27,7 +29,7 @@ public class TournamentDTO {
 	@NotBlank
 	public LocalDateTime endDate;
 
-	public List<ParticipantDTO> participantDTOS;
+	public List<Player.Participant> participants = new ArrayList<>();
 	
 	public String description;
 

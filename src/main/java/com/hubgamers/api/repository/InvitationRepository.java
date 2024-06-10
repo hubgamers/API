@@ -11,5 +11,7 @@ public interface InvitationRepository extends MongoRepository<Invitation, String
     
     List<Invitation> findAllByTeamId(String teamId);
     
+    List<Invitation> findAllByPlayerId(String playerId);
+    
     List<Invitation> findAllByTeamIdAndType(String teamId, Invitation.InvitationType type);
 }

@@ -11,6 +11,8 @@ public class Invitation {
     @Id
     public String id;
     
+    public String title;
+    
     public String playerId;
     
     public String teamId;

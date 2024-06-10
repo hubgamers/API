@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -22,13 +23,15 @@ public class Team {
 	
 	public boolean visibility;
 	
+	public PaidType paidType;
+	
 	public String game;
 	
 	public String platform;
 	
 	public Region region;
 	
-	public List<Player> players;
+	public List<Player> players = new ArrayList<>();
 	
 	public String organizerId;
 	
@@ -39,4 +42,8 @@ public class Team {
 	public SocialMedia socialMedia;
 	
 	public List<Invitation> invitations;
+	
+	public enum PaidType {
+		FREE, PREMIUM
+	}
 }

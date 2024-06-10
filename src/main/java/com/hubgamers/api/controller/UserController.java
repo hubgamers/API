@@ -28,6 +28,11 @@ public class UserController {
     public ResponseJson<List<User>> getAllUsers() {
         return new ResponseJson<>(userService.getAllUsers(), HttpStatus.OK.value());
     }
+    
+    @GetMapping("/id/{id}")
+    public ResponseJson<User> getUserById(@PathVariable String id) {
+        return new ResponseJson<>(userService.getUserById(id), HttpStatus.OK.value());
+    }
 
     @GetMapping("/username/{username}")
     public ResponseJson<User> getUserByUsername(@PathVariable String username) {

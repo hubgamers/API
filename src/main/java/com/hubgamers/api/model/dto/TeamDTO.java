@@ -3,6 +3,7 @@ package com.hubgamers.api.model.dto;
 import com.hubgamers.api.model.Player;
 import com.hubgamers.api.model.Region;
 import com.hubgamers.api.model.SocialMedia;
+import com.hubgamers.api.model.Team;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,8 @@ public class TeamDTO {
 	public String description;
 	
 	public boolean visibility;
+
+	public Team.PaidType paidType = Team.PaidType.FREE;
 	
 	@NotBlank
 	public String game;
