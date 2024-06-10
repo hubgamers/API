@@ -15,8 +15,12 @@ public class Team {
 	public String id;
 	
 	public String name;
+
+	public String tag;
 	
 	public String description;
+	
+	public boolean visibility;
 	
 	public String game;
 	

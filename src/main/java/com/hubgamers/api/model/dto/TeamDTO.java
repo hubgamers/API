@@ -16,8 +16,13 @@ public class TeamDTO {
 	
 	@NotBlank
 	public String name;
+
+	@NotBlank
+	public String tag;
 	
 	public String description;
+	
+	public boolean visibility;
 	
 	@NotBlank
 	public String game;
