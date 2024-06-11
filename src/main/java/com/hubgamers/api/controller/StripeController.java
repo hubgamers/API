@@ -47,6 +47,7 @@ public class StripeController {
 	public ResponseJson<String> createCheckoutSession(@RequestParam("lookup_key") String lookupKey) throws Exception {
 		PriceListParams priceParams = PriceListParams.builder().addLookupKeys(lookupKey).build();
 		PriceCollection prices = Price.list(priceParams);
+		System.out.println("prices " + prices);
 
 		SessionCreateParams params = SessionCreateParams.builder()
 				.addLineItem(
@@ -58,6 +59,7 @@ public class StripeController {
 				.setMode(SessionCreateParams.Mode.SUBSCRIPTION)
 				.setSuccessUrl(domain + "/checkout/success?session_id={CHECKOUT_SESSION_ID}")
 				.setCancelUrl(domain + "/checkout/cancel")
+				.setSubscriptionData(SessionCreateParams.SubscriptionData.builder().setTrialPeriodDays(14L).build())
 				.build();
 		com.stripe.model.checkout.Session session = com.stripe.model.checkout.Session.create(params);
 
@@ -66,7 +68,7 @@ public class StripeController {
 
 
 	@PostMapping("/create-portal-session")
-	public void createPortalSession(@RequestParam("session_id") String sessionId, HttpServletResponse response) throws Exception {
+	public ResponseJson<String> createPortalSession(@RequestParam("session_id") String sessionId) throws Exception {
 		com.stripe.model.checkout.Session checkoutSession = com.stripe.model.checkout.Session.retrieve(sessionId);
 		String customer = checkoutSession.getCustomer();
 
@@ -78,7 +80,7 @@ public class StripeController {
 
 		com.stripe.model.billingportal.Session portalSession = com.stripe.model.billingportal.Session.create(params);
 
-		response.sendRedirect(portalSession.getUrl());
+		return new ResponseJson<>(portalSession.getUrl(), 200);
 	}
 
 	@PostMapping("/webhook")
