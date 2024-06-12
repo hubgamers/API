@@ -27,4 +27,8 @@ public class UserDTO {
 	
 	@NotNull
 	public List<Role> roles;
+	
+	public String stripeSessionId;
+	
+	public String stripePriceId;
 }
