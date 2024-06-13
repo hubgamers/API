@@ -3,6 +3,8 @@ package com.hubgamers.api.controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.hubgamers.api.mapper.UserMapper;
+import com.hubgamers.api.model.StripeProductView;
+import com.hubgamers.api.model.User;
 import com.hubgamers.api.model.dto.UserDTO;
 import com.hubgamers.api.response.ResponseJson;
 import com.hubgamers.api.service.UserService;
@@ -56,6 +58,7 @@ public class StripeController {
 		PriceListParams priceParams = PriceListParams.builder().addLookupKeys(lookupKey).build();
 		PriceCollection prices = Price.list(priceParams);
 		String priceId = prices.getData().get(0).getId();
+		String subscriptionId = prices.getData().get(0).getProduct();
 
 		SessionCreateParams params = SessionCreateParams.builder()
 				.addLineItem(
@@ -74,6 +77,7 @@ public class StripeController {
 		UserDTO userDTO = userMapper.toDTO(userService.getUserConnected());
 		userDTO.setStripeSessionId(session.getId());
 		userDTO.setStripePriceId(priceId);
+		userDTO.setStripeSubscriptionId(subscriptionId);
 		userService.updateUser(userDTO);
 
 		return new ResponseJson<>(session.getUrl(), 200);
@@ -96,68 +100,15 @@ public class StripeController {
 		return new ResponseJson<>(portalSession.getUrl(), 200);
 	}
 	
-	private List<Subscription> getSubscriptionsByCustomer(@RequestParam("customer_id") String customerId) {
-		try {
-			SubscriptionListParams params = SubscriptionListParams.builder()
-					.setCustomer(customerId)
-					.build();
-			
-			return Subscription.list(params).getData();
-		} catch (StripeException e) {
-			throw new RuntimeException("Error while getting subscriptions by customer", e);
-		}
-	}
-	
-	@PostMapping("/update-subscription")
-	public ResponseJson<String> updateSubscription(@RequestParam("session_id") String sessionId,
-											   @RequestParam("newPriceId") String newPriceId) throws StripeException {
-		// Récupérer la session de paiement Stripe
-		Session checkoutSession = Session.retrieve(sessionId);
-		String oldPriceId = Subscription.retrieve(checkoutSession.getSubscription()).getItems().getData().get(0).getPrice().getId();
-		
-		// Récupérer l'abonnement correspondant à la session
-		List<Subscription> subscriptions = getSubscriptionsByCustomer(checkoutSession.getCustomer());
-		String subscriptionId = subscriptions.get(0).getId();
-		Subscription subscription = Subscription.retrieve(subscriptionId);
-		
-		// Récupérer l'article d'abonnement correspondant à l'abonnement Silver
-		SubscriptionItem subscriptionItem = getSubscriptionItemByPriceId(subscription.getItems().getData(), oldPriceId);
-		
-		if (subscriptionItem == null) {
-			throw new RuntimeException("Subscription item not found");
-		}
-		
-		PlanCollection plans = Plan.list(PlanListParams.builder().build());
-		
-		for (Plan plan : plans.getData()) {
-			System.out.println("ID du plan : " + plan.getId());
-			System.out.println("Nom du plan : " + plan.getNickname());
-			System.out.println("Nom du plan : " + plan.getProduct());
-			// Ajoutez d'autres détails du plan si nécessaire
-		}
-		
-		// Créer les paramètres de mise à jour de l'abonnement
-		SubscriptionUpdateParams params = SubscriptionUpdateParams.builder()
-				.addItem(SubscriptionUpdateParams.Item.builder()
-						.setId(subscription.getItems().getData().get(0).getId())
-						.setPlan(newPriceId) // ID du nouveau plan
-						.build())
-				.build();
-		
-		// Mettre à jour l'abonnement
-		subscription.update(params);
-
-		return new ResponseJson<>("Subscription updated", 200);
-	}
-	
-	// Méthode utilitaire pour récupérer l'article d'abonnement correspondant au prix donné
-	private SubscriptionItem getSubscriptionItemByPriceId(List<SubscriptionItem> items, String priceId) {
-		for (SubscriptionItem item : items) {
-			if (item.getPrice().getId().equals(priceId)) {
-				return item;
-			}
-		}
-		return null; // Gérer le cas où aucun article correspondant n'est trouvé
+	@GetMapping("/products/user")
+	public ResponseJson<StripeProductView> getProduct() throws StripeException {
+		User user = userService.getUserConnected();
+		Product product = Product.retrieve(user.getStripeSubscriptionId());
+		StripeProductView stripeProductView = new StripeProductView();
+		stripeProductView.setId(product.getId());
+		stripeProductView.setName(product.getName());
+		System.out.println(stripeProductView);
+		return new ResponseJson<>(stripeProductView, 200);
 	}
 
 	@PostMapping("/webhook")

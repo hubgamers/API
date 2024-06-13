@@ -38,4 +38,6 @@ public class User {
 	public String stripeSessionId;
 	
 	public String stripePriceId;
+	
+	public String stripeSubscriptionId;
 }
