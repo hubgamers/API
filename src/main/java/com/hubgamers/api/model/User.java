@@ -34,4 +34,8 @@ public class User {
 	public String email;
 	
 	public List<Role> roles;
+	
+	public String stripeSessionId;
+	
+	public String stripePriceId;
 }
