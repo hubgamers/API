@@ -11,7 +11,8 @@ import jakarta.persistence.*;
 @Table(name = "players")
 public class Player {
 	@Id
-	public String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Long id;
 	
 	@Column(name = "username")
 	public String username;

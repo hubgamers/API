@@ -47,7 +47,7 @@ public class TournamentService {
 	}
 	
 	public List<Tournament> getMyTournaments() {
-		return tournamentRepository.findAllByOrganizerId(userService.getUserConnected().getId());
+		return tournamentRepository.findAllByOrganizerId(String.valueOf(userService.getUserConnected().getId()));
 	}
 	
 	public Tournament getTournamentById(String id) {
@@ -55,7 +55,7 @@ public class TournamentService {
 	}
 	
 	public Tournament createTournament(TournamentDTO tournamentDTO) {
-		tournamentDTO.setOrganizerId(userService.getUserConnected().getId());
+		tournamentDTO.setOrganizerId(String.valueOf(userService.getUserConnected().getId()));
 		return tournamentRepository.save(tournamentMapper.toEntity(tournamentDTO));
 	}
 	

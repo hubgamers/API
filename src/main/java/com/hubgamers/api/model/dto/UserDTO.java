@@ -1,6 +1,7 @@
 package com.hubgamers.api.model.dto;
 
 import com.hubgamers.api.model.Role;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class UserDTO {
+	@Id
 	public String id;
 	
 	@NotNull

@@ -13,7 +13,8 @@ import java.util.List;
 @Table(name = "teams")
 public class Team {
 	@Id
-	public String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Long id;
 	
 	@Column(name = "name")
 	public String name;

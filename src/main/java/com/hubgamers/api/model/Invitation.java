@@ -12,8 +12,8 @@ import jakarta.persistence.*;
 public class Invitation {
     
     @Id
-    @GeneratedValue(generator = "uuid")
-    public String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long id;
     
     @Column(name = "title")
     public String title;
@@ -22,7 +22,7 @@ public class Invitation {
     public String playerId;
     
     @Column(name = "team_id")
-    public String teamId;
+    public Long teamId;
     
     @Column(name = "status")
     public InvitationStatus status;

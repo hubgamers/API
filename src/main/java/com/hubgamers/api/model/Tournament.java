@@ -14,7 +14,8 @@ import java.util.List;
 @Table(name = "tournaments")
 public class Tournament {
 	@Id
-	public String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Long id;
 	
 	@Column(name = "name")
 	public String name;

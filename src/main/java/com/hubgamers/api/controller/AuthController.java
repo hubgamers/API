@@ -71,7 +71,7 @@ public class AuthController {
 		AuthResponse authResponse = new AuthResponse();
 		authResponse.setJwtToken(jwtService.generateToken(user.getUsername()));
 		authResponse.setRefreshToken(user.getRefreshToken());
-		authResponse.setUserId(user.getId());
+		authResponse.setUserId(String.valueOf(user.getId()));
 		authResponse.setUsername(user.getUsername());
 		return new ResponseJson<>(authResponse, HttpStatus.OK.value(), jwtService.getExpiration());
 	}

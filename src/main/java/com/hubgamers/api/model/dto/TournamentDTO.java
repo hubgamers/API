@@ -1,6 +1,7 @@
 package com.hubgamers.api.model.dto;
 
 import com.hubgamers.api.model.*;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class TournamentDTO {
+	@Id
 	public String id;
 	
 	@NotBlank

@@ -56,7 +56,7 @@ public class PlayerService {
 	}
 	
 	public Player getPlayerByUsername(String username) {
-		return playerRepository.findByUserId(userService.getUserByUsername(username).getId());
+		return playerRepository.findByUserId(String.valueOf(userService.getUserByUsername(username).getId()));
 	}
 	
 	public Player createPlayer(PlayerDTO playerDTO) {

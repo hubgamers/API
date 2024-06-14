@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface TeamRepository extends CrudRepository<Team, String> {
+public interface TeamRepository extends CrudRepository<Team, Long> {
 	
 //	@Query("{'name': {$regex: ?0, $options: 'i'}}")
 	List<Team> findAllByNameLike(String name);

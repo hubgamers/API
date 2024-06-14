@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface InvitationRepository extends CrudRepository<Invitation, String> {
     
-    List<Invitation> findAllByTeamId(String teamId);
+    List<Invitation> findAllByTeamId(Long teamId);
     
     List<Invitation> findAllByPlayerId(String playerId);
     
-    List<Invitation> findAllByTeamIdAndType(String teamId, Invitation.InvitationType type);
+    List<Invitation> findAllByTeamIdAndType(Long teamId, Invitation.InvitationType type);
 }

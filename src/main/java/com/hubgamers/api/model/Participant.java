@@ -14,7 +14,8 @@ import lombok.NoArgsConstructor;
 public class Participant {
 	
 	@Id
-	public String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Long id;
 	
 	@JoinColumn(name = "team")
 	@ManyToOne
