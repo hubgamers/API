@@ -8,6 +8,7 @@ import com.hubgamers.api.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +43,9 @@ public class UserService {
 	}
 	
 	public List<User> getAllUsers() {
-		return userRepository.findAll();
+//		return userRepository.findAll();
+		return new ArrayList<>();
+		
 	}
 	
 	public User getUserById(String id) {

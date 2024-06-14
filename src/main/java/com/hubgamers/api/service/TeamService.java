@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +49,9 @@ public class TeamService {
 	}
 	
 	public List<Team> getAllTeams() {
-		return teamRepository.findAll();
+//		return teamRepository.findAll();
+		return new ArrayList<>();
+		
 	}
 	
 	public List<Team> getAllTeamNames(String name) {

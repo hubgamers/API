@@ -10,6 +10,7 @@ import com.hubgamers.api.repository.InvitationRepository;
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,7 +37,9 @@ public class InvitationService {
     }
     
     public List<Invitation> getAll() {
-        return invitationRepository.findAll();
+//        return invitationRepository.findAll();
+        return new ArrayList<>();
+        
     }
     
     public List<Invitation> getAllByTeamId(String teamId) {

@@ -4,7 +4,6 @@ import com.hubgamers.api.model.Role;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.util.List;
 
@@ -22,7 +21,6 @@ public class UserDTO {
 	public String password;
 	
 	@NotNull
-	@Indexed(unique = true)
 	public String email;
 	
 	@NotNull
