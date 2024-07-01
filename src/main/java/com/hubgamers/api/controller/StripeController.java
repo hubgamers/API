@@ -2,6 +2,7 @@ package com.hubgamers.api.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.hubgamers.api.exception.BadRequestException;
 import com.hubgamers.api.mapper.UserMapper;
 import com.hubgamers.api.model.StripeProductView;
 import com.hubgamers.api.model.User;
@@ -104,7 +105,7 @@ public class StripeController {
 	public ResponseJson<StripeProductView> getProduct() throws StripeException {
 		User user = userService.getUserConnected();
 		if (user.getStripeSubscriptionId() == null) {
-			return new ResponseJson<>(null, 200);
+			throw new BadRequestException("User has no subscription");
 		}
 		Product product = Product.retrieve(user.getStripeSubscriptionId());
 		StripeProductView stripeProductView = new StripeProductView();
