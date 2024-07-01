@@ -46,6 +46,7 @@ public class UserDataFixtures {
 		Player player = new Player();
 		player.setUsername(admin.getUsername());
 		player.setUserId(admin.getId());
+		player.setVisibility(true);
 		playerRepository.save(player);
 		
 		User user2 = new User();
@@ -58,6 +59,7 @@ public class UserDataFixtures {
 		Player player2 = new Player();
 		player2.setUsername(user2.getUsername());
 		player2.setUserId(user2.getId());
+		player2.setVisibility(true);
 		playerRepository.save(player2);
 		
 		User user3 = new User();
@@ -70,6 +72,7 @@ public class UserDataFixtures {
 		Player player3 = new Player();
 		player3.setUsername(user3.getUsername());
 		player3.setUserId(user3.getId());
+		player3.setVisibility(true);
 		playerRepository.save(player3);
 	}
 	

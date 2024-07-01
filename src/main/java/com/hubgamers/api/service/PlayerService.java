@@ -35,8 +35,7 @@ public class PlayerService {
 	}
 	
 	public List<Player> getAllPlayers() {
-//		return playerRepository.findAll();
-		return new ArrayList<>();
+		return playerRepository.findAllByVisibility(true);
 	}
 	
 	public Player getPlayerById(String id) throws AccountNotFoundException {

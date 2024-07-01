@@ -13,6 +13,8 @@ public interface TeamRepository extends CrudRepository<Team, Long> {
 	
 	List<Team> findAllByOrganizerId(Long organizerId);
 	
+	List<Team> findAllByVisibility(boolean visibility);
+	
 	Optional<Team> findByName(String name);
 	
 	Optional<Team> findByOrganizerId(Long organizerId);

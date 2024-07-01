@@ -31,9 +31,9 @@ public class TeamController {
 		return new ResponseJson<>(teamService.getColumns(), HttpStatus.OK.value());
 	}
 	
-	@GetMapping("/all")
-	public ResponseJson<List<Team>> getAllTeams() {
-		return new ResponseJson<>(teamService.getAllTeams(), HttpStatus.OK.value());
+	@GetMapping("/all-public")
+	public ResponseJson<List<Team>> getAllPublicTeams() {
+		return new ResponseJson<>(teamService.getAllPublicTeams(), HttpStatus.OK.value());
 	}
 	
 	@GetMapping("/all/name/{name}")

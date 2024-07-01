@@ -48,10 +48,8 @@ public class TeamService {
 		return teamMapper.getColumns();
 	}
 	
-	public List<Team> getAllTeams() {
-//		return teamRepository.findAll();
-		return new ArrayList<>();
-		
+	public List<Team> getAllPublicTeams() {
+		return teamRepository.findAllByVisibility(true);
 	}
 	
 	public List<Team> getAllTeamNames(String name) {
