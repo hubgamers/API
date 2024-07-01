@@ -75,8 +75,8 @@ public class TeamService {
 	}
 	
 	public Team createTeam(TeamDTO teamDTO) {
+		System.out.println("userService.getUserConnected()" + userService.getUserConnected());
 		teamDTO.setOrganizerId(userService.getUserConnected().getId());
-		System.out.println("teamDTO.getPlayers() = " + teamDTO);
 		return teamRepository.save(teamMapper.toEntity(teamDTO));
 	}
 	

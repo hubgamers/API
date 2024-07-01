@@ -14,7 +14,7 @@ import java.util.List;
 public class Team {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long id;
+	public Integer id;
 	
 	@Column(name = "name")
 	public String name;
@@ -26,7 +26,7 @@ public class Team {
 	public String description;
 	
 	@Column(name = "visibility")
-	public boolean visibility;
+	public boolean visibility = true;
 	
 	@Column(name = "paid_type")
 	public PaidType paidType;
