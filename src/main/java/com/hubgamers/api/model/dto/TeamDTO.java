@@ -41,7 +41,7 @@ public class TeamDTO {
 	public List<PlayerDTO> players;
 	
 	@NotBlank
-	public Long organizerId;
+	public Integer organizerId;
 	
 	public String logo;
 	

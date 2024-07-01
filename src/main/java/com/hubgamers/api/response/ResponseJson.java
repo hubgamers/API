@@ -2,6 +2,7 @@ package com.hubgamers.api.response;
 
 public class ResponseJson<T> {
 	private T data;
+	private String message;
 	private int statusCode;
 	
 	private long exp;
@@ -17,8 +18,17 @@ public class ResponseJson<T> {
 		this.exp = exp;
 	}
 	
+	public ResponseJson(String message, int statusCode) {
+		this.message = message;
+		this.statusCode = statusCode;
+	}
+	
 	public T getData() {
 		return data;
+	}
+	
+	public String getMessage() {
+		return message;
 	}
 	
 	public int getStatusCode() {

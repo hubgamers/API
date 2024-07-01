@@ -1,5 +1,6 @@
 package com.hubgamers.api.controller;
 
+import com.hubgamers.api.exception.BadRequestException;
 import com.hubgamers.api.model.AuthRequest;
 import com.hubgamers.api.model.AuthResponse;
 import com.hubgamers.api.model.User;
@@ -45,10 +46,10 @@ public class AuthController {
 	private AuthenticationManager authenticationManager;
 	
 	@PostMapping("/register")
-	public ResponseJson<User> register(@RequestBody AuthRequest authRequest) throws AccountNotFoundException {
+	public ResponseJson<User> register(@RequestBody AuthRequest authRequest) throws BadRequestException {
 		logger.log(System.Logger.Level.INFO, "Registering user: " + authRequest.getLogin());
 		if (authRequest.getUsername() == null || authRequest.getEmail() == null) {
-			throw new AccountNotFoundException("Username or email is required");
+			throw new BadRequestException("Username or email not found");
 		}
 		return new ResponseJson<>(authService.register(authRequest), HttpStatus.OK.value());
 	}
