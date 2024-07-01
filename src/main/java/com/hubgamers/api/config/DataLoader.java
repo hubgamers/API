@@ -20,13 +20,8 @@ public class DataLoader implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		// Suppression des données de test
-		userDataFixtures.deleteAll();
-		teamDataFixtures.deleteAll();
 		userDataFixtures.createTestData();
 		teamDataFixtures.createTestData();
-		
-		// Vous pouvez ajouter d'autres données de test ici
 	}
 }
 

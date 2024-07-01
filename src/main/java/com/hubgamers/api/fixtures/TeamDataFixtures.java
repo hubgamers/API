@@ -19,14 +19,12 @@ public class TeamDataFixtures {
 	
 	public void createTestData() {
 		Set<String> names = Set.of("Team 1", "Team 2", "Team 3", "Team 4", "Team 5");
-		for (String name : names) {
-			Team team = new Team();
-			team.setName(name);
-			teamRepository.save(team);
+		if (teamRepository.count() == 0) {
+			for (String name : names) {
+				Team team = new Team();
+				team.setName(name);
+				teamRepository.save(team);
+			}	
 		}
-	}
-	
-	public void deleteAll() {
-		teamRepository.deleteAll();
 	}
 }

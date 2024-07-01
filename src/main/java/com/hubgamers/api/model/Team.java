@@ -56,7 +56,6 @@ public class Team {
 	public String banner;
 	
 	@ManyToMany
-	@JoinTable(name = "invitations", joinColumns = @JoinColumn(name = "team_id"), inverseJoinColumns = @JoinColumn(name = "invitation_id"))
 	public List<Invitation> invitations;
 	
 	public enum PaidType {

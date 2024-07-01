@@ -36,48 +36,49 @@ public class UserDataFixtures {
 	}
 	
 	public void createTestData() {
-		User admin = new User();
-		admin.setUsername(adminUsername);
-		admin.setEmail(adminEmail);
-		admin.setPassword(passwordEncoder.encode(adminPassword)); // Correction ici
-		admin.setRoles(List.of(Role.ADMIN, Role.USER, Role.PLAYER));
-		userRepository.save(admin);
+		if (!userRepository.existsByEmail(adminEmail)) {
+			User admin = new User();
+			admin.setUsername(adminUsername);
+			admin.setEmail(adminEmail);
+			admin.setPassword(passwordEncoder.encode(adminPassword));
+			admin.setRoles(List.of(Role.ADMIN, Role.USER, Role.PLAYER));
+			userRepository.save(admin);
+			
+			Player player = new Player();
+			player.setUsername(admin.getUsername());
+			player.setUserId(admin.getId());
+			player.setVisibility(true);
+			playerRepository.save(player);
+		}
 		
-		Player player = new Player();
-		player.setUsername(admin.getUsername());
-		player.setUserId(admin.getId());
-		player.setVisibility(true);
-		playerRepository.save(player);
+		if (!userRepository.existsByUsername("JaneSmith")) {
+			User user2 = new User();
+			user2.setUsername("JaneSmith");
+			user2.setEmail("jane.smith@example.com");
+			user2.setPassword(passwordEncoder.encode("password"));
+			user2.setRoles(List.of(Role.USER, Role.PLAYER));
+			userRepository.save(user2);
+			
+			Player player2 = new Player();
+			player2.setUsername(user2.getUsername());
+			player2.setUserId(user2.getId());
+			player2.setVisibility(true);
+			playerRepository.save(player2);
+		}
 		
-		User user2 = new User();
-		user2.setUsername("JaneSmith");
-		user2.setEmail("jane.smith@example.com");
-		user2.setPassword(passwordEncoder.encode("password"));
-		user2.setRoles(List.of(Role.USER, Role.PLAYER));
-		userRepository.save(user2);
-		
-		Player player2 = new Player();
-		player2.setUsername(user2.getUsername());
-		player2.setUserId(user2.getId());
-		player2.setVisibility(true);
-		playerRepository.save(player2);
-		
-		User user3 = new User();
-		user3.setUsername("JohnDoe");
-		user3.setEmail("john.doe@example.com");
-		user3.setPassword(passwordEncoder.encode("password"));
-		user2.setRoles(List.of(Role.USER, Role.PLAYER));
-		userRepository.save(user3);
-		
-		Player player3 = new Player();
-		player3.setUsername(user3.getUsername());
-		player3.setUserId(user3.getId());
-		player3.setVisibility(true);
-		playerRepository.save(player3);
-	}
-	
-	public void deleteAll() {
-		userRepository.deleteAll();
-		playerRepository.deleteAll();
+		if (!userRepository.existsByUsername("JohnDoe")) {
+			User user3 = new User();
+			user3.setUsername("JohnDoe");
+			user3.setEmail("john.doe@example.com");
+			user3.setPassword(passwordEncoder.encode("password"));
+			user3.setRoles(List.of(Role.USER, Role.PLAYER));
+			userRepository.save(user3);
+			
+			Player player3 = new Player();
+			player3.setUsername(user3.getUsername());
+			player3.setUserId(user3.getId());
+			player3.setVisibility(true);
+			playerRepository.save(player3);
+		}
 	}
 }
