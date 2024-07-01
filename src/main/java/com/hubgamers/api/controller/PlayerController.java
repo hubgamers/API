@@ -41,7 +41,7 @@ public class PlayerController {
     }
     
     @GetMapping("/userId/{userId}")
-    public ResponseJson<Player> getPlayerByUserId(@PathVariable String userId) throws AccountNotFoundException {
+    public ResponseJson<Player> getPlayerByUserId(@PathVariable Long userId) throws AccountNotFoundException {
         return new ResponseJson<>(playerService.getPlayerByUserId(userId), HttpStatus.OK.value());
     }
 

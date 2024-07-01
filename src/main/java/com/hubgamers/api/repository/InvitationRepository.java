@@ -9,7 +9,7 @@ public interface InvitationRepository extends CrudRepository<Invitation, String>
     
     List<Invitation> findAllByTeamId(Long teamId);
     
-    List<Invitation> findAllByPlayerId(String playerId);
+    List<Invitation> findAllByPlayerId(Long playerId);
     
     List<Invitation> findAllByTeamIdAndType(Long teamId, Invitation.InvitationType type);
 }

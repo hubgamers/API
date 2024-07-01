@@ -13,8 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class TournamentDTO {
-	@Id
-	public String id;
+	public Long id;
 	
 	@NotBlank
 	public String name;
@@ -44,7 +43,7 @@ public class TournamentDTO {
 	public Region region;
 	
 	@NotBlank
-	public String organizerId;
+	public Long organizerId;
 	
 	public String logo;
 	

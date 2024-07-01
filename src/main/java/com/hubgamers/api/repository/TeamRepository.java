@@ -11,9 +11,9 @@ public interface TeamRepository extends CrudRepository<Team, Long> {
 //	@Query("{'name': {$regex: ?0, $options: 'i'}}")
 	List<Team> findAllByNameLike(String name);
 	
-	List<Team> findAllByOrganizerId(String organizerId);
+	List<Team> findAllByOrganizerId(Long organizerId);
 	
 	Optional<Team> findByName(String name);
 	
-	Optional<Team> findByOrganizerId(String organizerId);
+	Optional<Team> findByOrganizerId(Long organizerId);
 }

@@ -12,10 +12,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "participants")
 public class Participant {
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+	@SequenceGenerator(name = "sequenceGenerator")
+	@Column(name = "id")
+	private Long id;
 	
 	@JoinColumn(name = "team")
 	@ManyToOne

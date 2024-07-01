@@ -8,13 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class InvitationDTO {
-    
-    @Id
-    public String id;
+    public Long id;
 
-    public String playerId;
+    public Long playerId;
 
-    public String teamId;
+    public Long teamId;
 
     public Invitation.InvitationStatus status = Invitation.InvitationStatus.PENDING;
 

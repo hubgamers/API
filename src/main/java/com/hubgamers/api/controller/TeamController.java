@@ -43,7 +43,7 @@ public class TeamController {
 	
 	@GetMapping("/my-teams")
 	public ResponseJson<List<Team>> getMyTeams() {
-		return new ResponseJson<>(teamService.getMyTeams(String.valueOf(userService.getUserConnected().getId())), HttpStatus.OK.value());
+		return new ResponseJson<>(teamService.getMyTeams(), HttpStatus.OK.value());
 	}
 	
 	@GetMapping("/name/{name}")
@@ -52,12 +52,12 @@ public class TeamController {
 	}
 	
 	@GetMapping("/id/{id}")
-	public ResponseJson<Team> getTeamById(@PathVariable String id) {
-		return new ResponseJson<>(teamService.getTeamById(Long.valueOf(id)), HttpStatus.OK.value());
+	public ResponseJson<Team> getTeamById(@PathVariable Long id) {
+		return new ResponseJson<>(teamService.getTeamById(id), HttpStatus.OK.value());
 	}
 	
 	@GetMapping("/owner/{organizerId}")
-	public ResponseJson<Team> getTeamByOwner(@PathVariable String organizerId) {
+	public ResponseJson<Team> getTeamByOwner(@PathVariable Long organizerId) {
 		return new ResponseJson<>(teamService.getTeamByOwner(organizerId), HttpStatus.OK.value());
 	}
 	
@@ -67,13 +67,13 @@ public class TeamController {
 	}
 	
 	@PostMapping("/banner/upload/{id}")
-	public ResponseJson<Team> uploadBanner(@PathVariable String id, @RequestParam("file") MultipartFile file) {
-		return new ResponseJson<>(teamService.uploadBanner(Long.valueOf(id), file), HttpStatus.OK.value());
+	public ResponseJson<Team> uploadBanner(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+		return new ResponseJson<>(teamService.uploadBanner(id, file), HttpStatus.OK.value());
 	}
 	
 	@PostMapping("/logo/upload/{id}")
-	public ResponseJson<Team> uploadLogo(@PathVariable String id, @RequestParam("file") MultipartFile file) {
-		return new ResponseJson<>(teamService.uploadLogo(Long.valueOf(id), file), HttpStatus.OK.value());
+	public ResponseJson<Team> uploadLogo(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+		return new ResponseJson<>(teamService.uploadLogo(id, file), HttpStatus.OK.value());
 	}
 	
 	@PutMapping("/update")
@@ -82,7 +82,7 @@ public class TeamController {
 	}
 	
 	@PostMapping("/delete/{id}")
-	public void deleteTeam(@PathVariable String id) {
-		teamService.deleteTeam(Long.valueOf(id));
+	public void deleteTeam(@PathVariable Long id) {
+		teamService.deleteTeam(id);
 	}
 }

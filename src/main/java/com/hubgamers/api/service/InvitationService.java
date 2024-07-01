@@ -42,26 +42,26 @@ public class InvitationService {
         
     }
     
-    public List<Invitation> getAllByTeamId(String teamId) {
-        return invitationRepository.findAllByTeamId(Long.valueOf(teamId));
+    public List<Invitation> getAllByTeamId(Long teamId) {
+        return invitationRepository.findAllByTeamId(teamId);
     }
     
-    public List<Invitation> getAllByPlayerId(String playerId) {
+    public List<Invitation> getAllByPlayerId(Long playerId) {
         return invitationRepository.findAllByPlayerId(playerId);
     }
     
     /*
     * Récupérer toutes les invitation à rejoindre cette équipe d'autres joueurs
      */
-    public List<Invitation> getAllJoinInvitationByTeamId(String teamId) {
-        return invitationRepository.findAllByTeamIdAndType(Long.valueOf(teamId), Invitation.InvitationType.JOIN_TEAM);
+    public List<Invitation> getAllJoinInvitationByTeamId(Long teamId) {
+        return invitationRepository.findAllByTeamIdAndType(teamId, Invitation.InvitationType.JOIN_TEAM);
     }
     
     /*
     * Récupérer toutes les invitation de recrutement de joueurs pour cette équipe
      */
-    public List<Invitation> getAllRecruitPlayerInvitationByTeamId(String teamId) {
-        return invitationRepository.findAllByTeamIdAndType(Long.valueOf(teamId), Invitation.InvitationType.RECRUIT_PLAYER);
+    public List<Invitation> getAllRecruitPlayerInvitationByTeamId(Long teamId) {
+        return invitationRepository.findAllByTeamIdAndType(teamId, Invitation.InvitationType.RECRUIT_PLAYER);
     }
     
     public Invitation getInvitationById(String id) {
@@ -84,7 +84,7 @@ public class InvitationService {
         invitation = invitationRepository.save(invitation);
         
         Team team = teamService.getTeamById(invitation.getTeamId());
-        Player player = playerService.getPlayerById(invitation.getPlayerId());
+        Player player = playerService.getPlayerById(String.valueOf(invitation.getPlayerId()));
         team.getPlayers().add(player);
         teamService.updateTeam(teamMapper.toDTO(team));
         return invitation;

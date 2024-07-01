@@ -10,16 +10,17 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "invitations")
 public class Invitation {
-    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
+    private Long id;
     
     @Column(name = "title")
     public String title;
     
     @Column(name = "player_id")
-    public String playerId;
+    public Long playerId;
     
     @Column(name = "team_id")
     public Long teamId;

@@ -14,8 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class TeamDTO {
-	@Id
-	public String id;
+	public Long id;
 	
 	@NotBlank
 	public String name;
@@ -41,7 +40,7 @@ public class TeamDTO {
 	public List<PlayerDTO> players;
 	
 	@NotBlank
-	public Integer organizerId;
+	public Long organizerId;
 	
 	public String logo;
 	

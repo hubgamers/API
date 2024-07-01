@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -13,8 +12,10 @@ import java.util.List;
 @Table(name = "teams")
 public class Team {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Integer id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+	@SequenceGenerator(name = "sequenceGenerator")
+	@Column(name = "id")
+	private Long id;
 	
 	@Column(name = "name")
 	public String name;
@@ -37,13 +38,16 @@ public class Team {
 	@Column(name = "platform")
 	public String platform;
 	
-	@Column(name = "players")
 	@ManyToMany
-	@JoinTable(name = "players", joinColumns = @JoinColumn(name = "team_id"), inverseJoinColumns = @JoinColumn(name = "player_id"))
-	public List<Player> players = new ArrayList<>();
+	@JoinTable(
+			name = "team_players",
+			joinColumns = @JoinColumn(name = "team_id", nullable = true),
+			inverseJoinColumns = @JoinColumn(name = "player_id", nullable = true)
+	)
+	public List<Player> players;
 	
 	@Column(name = "organizer_id")
-	public String organizerId;
+	public Long organizerId;
 	
 	@Column(name = "logo")
 	public String logo;
@@ -51,7 +55,6 @@ public class Team {
 	@Column(name = "banner")
 	public String banner;
 	
-	@Column(name = "invitations")
 	@ManyToMany
 	@JoinTable(name = "invitations", joinColumns = @JoinColumn(name = "team_id"), inverseJoinColumns = @JoinColumn(name = "invitation_id"))
 	public List<Invitation> invitations;

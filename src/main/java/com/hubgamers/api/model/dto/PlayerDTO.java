@@ -8,12 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class PlayerDTO {
-	@Id
-	public String id;
+	public Long id;
 	
 	@NotBlank
 	public String username;
 	
 	@NotBlank
-	public String userId;
+	public Long userId;
 }

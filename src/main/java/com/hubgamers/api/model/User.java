@@ -13,10 +13,11 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User {
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Integer id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+	@SequenceGenerator(name = "sequenceGenerator")
+	@Column(name = "id")
+	private Long id;
 	
 	@NotNull
 	@Column(name = "username")

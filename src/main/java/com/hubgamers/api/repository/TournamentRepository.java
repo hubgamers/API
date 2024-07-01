@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface TournamentRepository extends CrudRepository<Tournament, String> {
 	
-	List<Tournament> findAllByOrganizerId(String organizerId);
+	List<Tournament> findAllByOrganizerId(Long organizerId);
 }

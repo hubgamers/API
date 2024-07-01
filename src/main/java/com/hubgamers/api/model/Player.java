@@ -11,12 +11,14 @@ import jakarta.persistence.*;
 @Table(name = "players")
 public class Player {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+	@SequenceGenerator(name = "sequenceGenerator")
+	@Column(name = "id")
+	private Long id;
 	
 	@Column(name = "username")
 	public String username;
 	
 	@Column(name = "user_id")
-	public String userId;
+	public Long userId;
 }

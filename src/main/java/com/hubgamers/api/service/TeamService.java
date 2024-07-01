@@ -58,8 +58,8 @@ public class TeamService {
 		return teamRepository.findAllByNameLike(name);
 	}
 	
-	public List<Team> getMyTeams(String organizerId) {
-		return teamRepository.findAllByOrganizerId(organizerId);
+	public List<Team> getMyTeams() {
+		return teamRepository.findAllByOrganizerId(userService.getUserConnected().getId());
 	}
 	
 	public Team getTeamById(Long id) {
@@ -70,7 +70,7 @@ public class TeamService {
 		return teamRepository.findByName(name).orElse(null);
 	}
 	
-	public Team getTeamByOwner(String organizerId) {
+	public Team getTeamByOwner(Long organizerId) {
 		return teamRepository.findByOrganizerId(organizerId).orElse(null);
 	}
 	
@@ -115,7 +115,7 @@ public class TeamService {
 		for (PlayerDTO playerDTO : teamDTO.getPlayers()) {
 			int index = teamDTO.getPlayers().indexOf(playerDTO);
 			if (playerDTO.getId() != null) {
-				Player playerDb = playerService.getPlayerById(playerDTO.getId());
+				Player playerDb = playerService.getPlayerById(String.valueOf(playerDTO.getId()));
 				playerDTO = playerMapper.toDTO(playerDb);
 				// Remplacer à l'index
 				teamDTO.getPlayers().set(index, playerDTO);

@@ -14,8 +14,10 @@ import java.util.List;
 @Table(name = "tournaments")
 public class Tournament {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+	@SequenceGenerator(name = "sequenceGenerator")
+	@Column(name = "id")
+	private Long id;
 	
 	@Column(name = "name")
 	public String name;
@@ -47,7 +49,7 @@ public class Tournament {
 	public String platform;
 	
 	@Column(name = "organizer_id")
-	public String organizerId;
+	public Long organizerId;
 	
 	@Column(name = "logo")
 	public String logo;

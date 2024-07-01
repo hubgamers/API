@@ -26,7 +26,7 @@ public class TeamAdminController {
 	}
 	
 	@GetMapping("/owner/{organizerId}")
-	public ResponseJson<Team> getTeamByOwner(@PathVariable String organizerId) {
+	public ResponseJson<Team> getTeamByOwner(@PathVariable Long organizerId) {
 		return new ResponseJson<>(teamService.getTeamByOwner(organizerId), HttpStatus.OK.value());
 	}
 }
