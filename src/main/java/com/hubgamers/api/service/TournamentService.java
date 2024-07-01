@@ -2,6 +2,7 @@ package com.hubgamers.api.service;
 
 import com.cloudinary.utils.ObjectUtils;
 import com.hubgamers.api.mapper.TournamentMapper;
+import com.hubgamers.api.model.Participant;
 import com.hubgamers.api.model.Player;
 import com.hubgamers.api.model.Tournament;
 import com.hubgamers.api.model.dto.TournamentDTO;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,11 +41,13 @@ public class TournamentService {
 	}
 	
 	public List<Tournament> getAllTournaments() {
-		return tournamentRepository.findAll();
+//		return tournamentRepository.findAll();
+		return new ArrayList<>();
+		
 	}
 	
 	public List<Tournament> getMyTournaments() {
-		return tournamentRepository.findAllByOrganizerId(userService.getUserConnected().getId());
+		return tournamentRepository.findAllByOrganizerId(String.valueOf(userService.getUserConnected().getId()));
 	}
 	
 	public Tournament getTournamentById(String id) {
@@ -51,11 +55,11 @@ public class TournamentService {
 	}
 	
 	public Tournament createTournament(TournamentDTO tournamentDTO) {
-		tournamentDTO.setOrganizerId(userService.getUserConnected().getId());
+		tournamentDTO.setOrganizerId(String.valueOf(userService.getUserConnected().getId()));
 		return tournamentRepository.save(tournamentMapper.toEntity(tournamentDTO));
 	}
 	
-	public Tournament addParticipant(String id, Player.Participant participant) {
+	public Tournament addParticipant(String id, Participant participant) {
 		Tournament tournament = getTournamentById(id);
 		if (tournament == null) {
 			throw new RuntimeException("Tournament not found");

@@ -51,7 +51,7 @@ public class AuthService {
 		AuthResponse authResponse = new AuthResponse();
 		authResponse.setJwtToken(jwtService.generateToken(username));
 		authResponse.setRefreshToken(user.getRefreshToken());
-		authResponse.setUserId(user.getId());
+		authResponse.setUserId(String.valueOf(user.getId()));
 		authResponse.setUsername(user.getUsername());
 		return authResponse;
 	}

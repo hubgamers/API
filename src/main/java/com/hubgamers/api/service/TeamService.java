@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +49,9 @@ public class TeamService {
 	}
 	
 	public List<Team> getAllTeams() {
-		return teamRepository.findAll();
+//		return teamRepository.findAll();
+		return new ArrayList<>();
+		
 	}
 	
 	public List<Team> getAllTeamNames(String name) {
@@ -59,7 +62,7 @@ public class TeamService {
 		return teamRepository.findAllByOrganizerId(organizerId);
 	}
 	
-	public Team getTeamById(String id) {
+	public Team getTeamById(Long id) {
 		return teamRepository.findById(id).orElse(null);
 	}
 	
@@ -73,10 +76,11 @@ public class TeamService {
 	
 	public Team createTeam(TeamDTO teamDTO) {
 		teamDTO.setOrganizerId(userService.getUserConnected().getId());
+		System.out.println("teamDTO.getPlayers() = " + teamDTO);
 		return teamRepository.save(teamMapper.toEntity(teamDTO));
 	}
 	
-	public Team uploadBanner(String id, MultipartFile file) {
+	public Team uploadBanner(Long id, MultipartFile file) {
 		Team team = getTeamById(id);
 		if (team == null) {
 			throw new RuntimeException("Team not found");
@@ -91,7 +95,7 @@ public class TeamService {
 		return teamRepository.save(team);
 	}
 	
-	public Team uploadLogo(String id, MultipartFile file) {
+	public Team uploadLogo(Long id, MultipartFile file) {
 		Team team = getTeamById(id);
 		if (team == null) {
 			throw new RuntimeException("Team not found");
@@ -121,7 +125,7 @@ public class TeamService {
 		return teamRepository.save(teamMapper.toEntity(teamDTO));
 	}
 	
-	public void deleteTeam(String id) {
+	public void deleteTeam(Long id) {
 		teamRepository.delete(getTeamById(id));
 	}
 

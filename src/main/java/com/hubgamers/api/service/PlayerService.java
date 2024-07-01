@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +35,8 @@ public class PlayerService {
 	}
 	
 	public List<Player> getAllPlayers() {
-		return playerRepository.findAll();
+//		return playerRepository.findAll();
+		return new ArrayList<>();
 	}
 	
 	public Player getPlayerById(String id) throws AccountNotFoundException {
@@ -54,7 +56,7 @@ public class PlayerService {
 	}
 	
 	public Player getPlayerByUsername(String username) {
-		return playerRepository.findByUserId(userService.getUserByUsername(username).getId());
+		return playerRepository.findByUserId(String.valueOf(userService.getUserByUsername(username).getId()));
 	}
 	
 	public Player createPlayer(PlayerDTO playerDTO) {

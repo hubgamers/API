@@ -103,6 +103,9 @@ public class StripeController {
 	@GetMapping("/products/user")
 	public ResponseJson<StripeProductView> getProduct() throws StripeException {
 		User user = userService.getUserConnected();
+		if (user.getStripeSubscriptionId() == null) {
+			return new ResponseJson<>(null, 200);
+		}
 		Product product = Product.retrieve(user.getStripeSubscriptionId());
 		StripeProductView stripeProductView = new StripeProductView();
 		stripeProductView.setId(product.getId());

@@ -1,5 +1,6 @@
 package com.hubgamers.api.controller;
 
+import com.hubgamers.api.model.Participant;
 import com.hubgamers.api.model.Player;
 import com.hubgamers.api.model.Tournament;
 import com.hubgamers.api.model.dto.TournamentDTO;
@@ -42,7 +43,7 @@ public class TournamentController {
     }
     
     @PostMapping("/addParticipant/{id}")
-    public ResponseJson<Tournament> addParticipant(@PathVariable String id, @RequestBody Player.Participant participant) {
+    public ResponseJson<Tournament> addParticipant(@PathVariable String id, @RequestBody Participant participant) {
         return new ResponseJson<>(tournamentService.addParticipant(id, participant), HttpStatus.OK.value());
     }
     
