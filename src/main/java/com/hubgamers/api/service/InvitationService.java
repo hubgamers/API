@@ -2,6 +2,7 @@ package com.hubgamers.api.service;
 
 import com.hubgamers.api.mapper.InvitationMapper;
 import com.hubgamers.api.mapper.TeamMapper;
+import com.hubgamers.api.mapper.TeamRosterMapper;
 import com.hubgamers.api.model.Invitation;
 import com.hubgamers.api.model.Player;
 import com.hubgamers.api.model.TeamRoster;
@@ -23,6 +24,8 @@ public class InvitationService {
     private final PlayerService playerService;
     
     private final TeamMapper teamMapper = new TeamMapper();
+    
+    private final TeamRosterMapper teamRosterMapper = new TeamRosterMapper();
     
     private final InvitationMapper invitationMapper = new InvitationMapper();
     
@@ -70,7 +73,7 @@ public class InvitationService {
 
     public Invitation createInvitation(InvitationDTO invitationDTO) {
         Invitation invitation = invitationMapper.toEntity(invitationDTO);
-        TeamRoster teamRoster = teamRosterService.getTeamById(invitation.getTeamId());
+        TeamRoster teamRoster = teamRosterService.getTeamRosterById(invitation.getTeamId());
         invitation.setTitle("Invitation de '" + teamRoster.getName() + "' à rejoindre l'équipe");
         return invitationRepository.save(invitation);
     }
@@ -83,10 +86,10 @@ public class InvitationService {
         invitation.setStatus(Invitation.InvitationStatus.ACCEPTED);
         invitation = invitationRepository.save(invitation);
         
-        TeamRoster teamRoster = teamRosterService.getTeamById(invitation.getTeamId());
+        TeamRoster teamRoster = teamRosterService.getTeamRosterById(invitation.getTeamId());
         Player player = playerService.getPlayerById(invitation.getPlayerId());
-        teamRoster.getPlayers().add(player);
-        teamRosterService.updateTeam(teamMapper.toDTO(teamRoster));
+//        teamRoster.getPlayers().add(player);
+        teamRosterService.updateTeamRoster(teamRosterMapper.toDTO(teamRoster));
         return invitation;
     }
     

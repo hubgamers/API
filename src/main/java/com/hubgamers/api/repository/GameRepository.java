@@ -1,9 +1,7 @@
 package com.hubgamers.api.repository;
 
 import com.hubgamers.api.model.Game;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 
-@Repository
-public interface GameRepository extends MongoRepository<Game, String> {
+public interface GameRepository extends CrudRepository<Game, Long> {
 }

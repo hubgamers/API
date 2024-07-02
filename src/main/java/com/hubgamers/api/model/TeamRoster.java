@@ -1,47 +1,54 @@
 package com.hubgamers.api.model;
 
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Data
 @NoArgsConstructor
-@Table(name = "team_roster")
+@Entity
+@Table(name = "team_rosters")
 public class TeamRoster {
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+	@SequenceGenerator(name = "sequenceGenerator")
+	@Column(name = "id")
 	public Long id;
 	
+	@Column(name = "name")
 	public String name;
 
+	@Column(name = "tag")
 	public String tag;
 	
+	@Column(name = "description")
 	public String description;
 	
+	@Column(name = "visibility")
 	public boolean visibility;
 	
+	@Column(name = "paid_type")
 	public PaidType paidType;
 	
+	@Column(name = "paid_amount")
 	public String game;
 	
+	@Column(name = "platform")
 	public String platform;
 	
-	public Region region;
+//	@Column(name = "team_roster_players")
+//	public List<Player> players = new ArrayList<>();
 	
-	public List<Player> players = new ArrayList<>();
-	
+	@Column(name = "organizer_id")
 	public Long organizerId;
 	
+	@Column(name = "logo")
 	public String logo;
 	
+	@Column(name = "banner")
 	public String banner;
 	
-	public SocialMedia socialMedia;
-	
-	public List<Invitation> invitations;
+//	public List<Invitation> invitations;
 	
 	public enum PaidType {
 		FREE, PREMIUM

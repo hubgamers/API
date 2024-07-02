@@ -3,11 +3,13 @@ package com.hubgamers.api.controller;
 import com.hubgamers.api.model.Game;
 import com.hubgamers.api.service.GameService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController("api/games")
+@RestController
+@RequestMapping("api/game")
 public class GameController {
 	
 	private final GameService gameService;

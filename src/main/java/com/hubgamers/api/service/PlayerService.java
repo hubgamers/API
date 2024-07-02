@@ -66,7 +66,7 @@ public class PlayerService {
 		return playerRepository.save(playerMapper.toEntity(playerDTO));
 	}
 	
-	public void deletePlayer(String id) throws AccountNotFoundException {
+	public void deletePlayer(Long id) throws AccountNotFoundException {
 		playerRepository.delete(getPlayerById(id));
 	}
 }

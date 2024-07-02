@@ -21,6 +21,7 @@ public class GameService {
 	}
 	
 	public List<Game> getAllGames() {
-		return gameRepository.findAll();
+//		return gameRepository.findAll();
+		return null;
 	}
 }

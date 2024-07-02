@@ -36,7 +36,7 @@ public class PlayerController {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseJson<Player> getPlayerById(@PathVariable String id) throws AccountNotFoundException {
+    public ResponseJson<Player> getPlayerById(@PathVariable Long id) throws AccountNotFoundException {
         return new ResponseJson<>(playerService.getPlayerById(id), HttpStatus.OK.value());
     }
     
@@ -56,7 +56,7 @@ public class PlayerController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deletePlayer(String id) throws AccountNotFoundException {
+    public void deletePlayer(Long id) throws AccountNotFoundException {
         playerService.deletePlayer(id);
     }
 }

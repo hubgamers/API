@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TeamRosterRepository extends CrudRepository<TeamRoster, String> {
+public interface TeamRosterRepository extends CrudRepository<TeamRoster, Long> {
 	
 	List<TeamRoster> findAllByNameLike(String name);
 	
