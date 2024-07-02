@@ -1,8 +1,8 @@
 package com.hubgamers.api.controller;
 
-import com.hubgamers.api.model.Game;
+import com.hubgamers.api.model.Tag;
 import com.hubgamers.api.response.ResponseJson;
-import com.hubgamers.api.service.GameService;
+import com.hubgamers.api.service.TagService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,22 +11,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/game")
-public class GameController {
+@RequestMapping("api/tag")
+public class TagController {
 	
-	private final GameService gameService;
-	
-	public GameController(GameService gameService) {
-		this.gameService = gameService;
+	private final TagService tagService;
+
+	public TagController(TagService tagService) {
+		this.tagService = tagService;
 	}
 	
 	@GetMapping("/columns")
 	public List<String> getColumns() {
-		return gameService.getColumns();
+		return tagService.getColumns();
 	}
 	
 	@GetMapping("/all")
-	public ResponseJson<Iterable<Game>> getAllGames() {
-		return new ResponseJson<>(gameService.getAllGames(), HttpStatus.OK.value());
+	public ResponseJson<Iterable<Tag>> getAllTags() {
+		return new ResponseJson<>(tagService.getAllTags(), HttpStatus.OK.value());
 	}
 }

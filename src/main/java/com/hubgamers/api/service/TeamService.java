@@ -4,6 +4,7 @@ import com.cloudinary.utils.ObjectUtils;
 import com.hubgamers.api.mapper.PlayerMapper;
 import com.hubgamers.api.mapper.TeamMapper;
 import com.hubgamers.api.model.Player;
+import com.hubgamers.api.model.Tag;
 import com.hubgamers.api.model.Team;
 import com.hubgamers.api.model.dto.PlayerDTO;
 import com.hubgamers.api.model.dto.TeamDTO;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +33,9 @@ public class TeamService {
 
 	@Autowired
 	private FileService fileService;
+	
+	@Autowired
+	private TagService tagService;
 
 	@Autowired
 	private PlayerMapper playerMapper;
@@ -78,7 +83,13 @@ public class TeamService {
 	
 	public Team createTeam(TeamDTO teamDTO) {
 		teamDTO.setOrganizerId(userService.getUserConnected().getId());
-		return teamRepository.save(teamMapper.toEntity(teamDTO));
+		Team team = teamMapper.toEntity(teamDTO);
+		List<Tag> tags = new ArrayList<>();
+		for (Long tagId : teamDTO.getTags()) {
+			tags.add(tagService.findTagById(tagId));
+		}
+		team.setTags(tags);
+		return teamRepository.save(team);
 	}
 
 	public Team uploadBanner(Long id, MultipartFile file) {
@@ -112,15 +123,16 @@ public class TeamService {
 	}
 
 	public Team updateTeam(TeamDTO teamDTO) throws AccountNotFoundException {
-		System.out.println("teamDTO.getPlayers() = " + teamDTO.getPlayers());
-		for (PlayerDTO playerDTO : teamDTO.getPlayers()) {
-			int index = teamDTO.getPlayers().indexOf(playerDTO);
-			if (playerDTO.getId() != null) {
-				Player playerDb = playerService.getPlayerById(playerDTO.getId());
-				playerDTO = playerMapper.toDTO(playerDb);
-				// Remplacer à l'index
-				teamDTO.getPlayers().set(index, playerDTO);
-				System.out.println("playerDTO = " + playerDTO);
+		if (!teamDTO.getPlayers().isEmpty()) {
+			for (PlayerDTO playerDTO : teamDTO.getPlayers()) {
+				int index = teamDTO.getPlayers().indexOf(playerDTO);
+				if (playerDTO.getId() != null) {
+					Player playerDb = playerService.getPlayerById(playerDTO.getId());
+					playerDTO = playerMapper.toDTO(playerDb);
+					// Remplacer à l'index
+					teamDTO.getPlayers().set(index, playerDTO);
+					System.out.println("playerDTO = " + playerDTO);
+				}
 			}
 		}
 		return teamRepository.save(teamMapper.toEntity(teamDTO));

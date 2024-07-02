@@ -19,9 +19,13 @@ public class Team {
 	
 	@Column(name = "name")
 	public String name;
-
-	@Column(name = "tag")
-	public String tag;
+	
+	@ManyToMany
+	@JoinTable(
+			name = "team_tag",
+			joinColumns = @JoinColumn(name = "team_id"),
+			inverseJoinColumns = @JoinColumn(name = "tag_id"))
+	public List<Tag> tags;
 	
 	@Column(name = "description")
 	public String description;

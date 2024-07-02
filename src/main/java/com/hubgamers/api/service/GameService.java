@@ -20,8 +20,7 @@ public class GameService {
 		return Arrays.asList("id", "name");
 	}
 	
-	public List<Game> getAllGames() {
-//		return gameRepository.findAll();
-		return null;
+	public Iterable<Game> getAllGames() {
+		return gameRepository.findAll();
 	}
 }

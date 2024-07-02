@@ -1,15 +1,14 @@
 package com.hubgamers.api.model.dto;
 
-import com.hubgamers.api.model.Region;
-import com.hubgamers.api.model.SocialMedia;
-import com.hubgamers.api.model.Team;
-import com.hubgamers.api.model.TeamRoster;
+import com.hubgamers.api.model.*;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +19,7 @@ public class TeamDTO {
 	public String name;
 
 	@NotBlank
-	public String tag;
+	public Set<Long> tags = Set.of();
 	
 	public String description;
 	
@@ -34,10 +33,9 @@ public class TeamDTO {
 	@NotBlank
 	public String platform;
 	
-//	@NotBlank
 	public Region region;
 	
-	public List<PlayerDTO> players;
+	public List<PlayerDTO> players = new ArrayList<>();
 	
 	@NotBlank
 	public Long organizerId;
