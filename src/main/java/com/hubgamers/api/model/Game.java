@@ -4,6 +4,10 @@ import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document(collection = "team")
-public class Team {
+@Document(collection = "games")
+public class Game {
+	
+	public String id;
+	
+	public String name;
 }

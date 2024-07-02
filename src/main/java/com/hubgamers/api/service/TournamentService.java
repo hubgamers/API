@@ -60,7 +60,7 @@ public class TournamentService {
 		if (tournament == null) {
 			throw new RuntimeException("Tournament not found");
 		}
-		if (participant.getPlayer() == null && participant.getTeam() == null) {
+		if (participant.getPlayer() == null && participant.getTeamRoster() == null) {
 			throw new RuntimeException("Team or player is required");
 		}
 		tournament.getParticipants().add(participant);

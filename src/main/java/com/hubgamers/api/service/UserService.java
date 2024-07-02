@@ -1,7 +1,6 @@
 package com.hubgamers.api.service;
 
 import com.hubgamers.api.mapper.UserMapper;
-import com.hubgamers.api.model.Team;
 import com.hubgamers.api.model.User;
 import com.hubgamers.api.model.dto.UserDTO;
 import com.hubgamers.api.repository.UserRepository;

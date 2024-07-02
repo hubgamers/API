@@ -1,43 +1,38 @@
-package com.hubgamers.api.model.dto;
+package com.hubgamers.api.model;
 
-import com.hubgamers.api.model.Region;
-import com.hubgamers.api.model.SocialMedia;
-import com.hubgamers.api.model.TeamRoster;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Id;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class TeamDTO {
+@Document(collection = "team_roster")
+public class TeamRoster {
+	@Id
 	public String id;
 	
-	@NotBlank
 	public String name;
 
-	@NotBlank
 	public String tag;
 	
 	public String description;
 	
 	public boolean visibility;
-
-	public TeamRoster.PaidType paidType = TeamRoster.PaidType.FREE;
 	
-	@NotBlank
+	public PaidType paidType;
+	
 	public String game;
 	
-	@NotBlank
 	public String platform;
 	
-//	@NotBlank
 	public Region region;
 	
-	public List<PlayerDTO> players;
+	public List<Player> players = new ArrayList<>();
 	
-	@NotBlank
 	public String organizerId;
 	
 	public String logo;
@@ -45,4 +40,10 @@ public class TeamDTO {
 	public String banner;
 	
 	public SocialMedia socialMedia;
+	
+	public List<Invitation> invitations;
+	
+	public enum PaidType {
+		FREE, PREMIUM
+	}
 }

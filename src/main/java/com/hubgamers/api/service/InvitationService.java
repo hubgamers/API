@@ -4,7 +4,7 @@ import com.hubgamers.api.mapper.InvitationMapper;
 import com.hubgamers.api.mapper.TeamMapper;
 import com.hubgamers.api.model.Invitation;
 import com.hubgamers.api.model.Player;
-import com.hubgamers.api.model.Team;
+import com.hubgamers.api.model.TeamRoster;
 import com.hubgamers.api.model.dto.InvitationDTO;
 import com.hubgamers.api.repository.InvitationRepository;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class InvitationService {
     
     private final InvitationRepository invitationRepository;
     
-    private final TeamService teamService;
+    private final TeamRosterService teamRosterService;
     
     private final PlayerService playerService;
     
@@ -25,9 +25,9 @@ public class InvitationService {
     
     private final InvitationMapper invitationMapper = new InvitationMapper();
     
-    public InvitationService(InvitationRepository invitationRepository, TeamService teamService, PlayerService playerService) {
+    public InvitationService(InvitationRepository invitationRepository, TeamRosterService teamRosterService, PlayerService playerService) {
         this.invitationRepository = invitationRepository;
-		this.teamService = teamService;
+		this.teamRosterService = teamRosterService;
 		this.playerService = playerService;
 	}
 
@@ -67,8 +67,8 @@ public class InvitationService {
 
     public Invitation createInvitation(InvitationDTO invitationDTO) {
         Invitation invitation = invitationMapper.toEntity(invitationDTO);
-        Team team = teamService.getTeamById(invitation.getTeamId());
-        invitation.setTitle("Invitation de '" + team.getName() + "' à rejoindre l'équipe");
+        TeamRoster teamRoster = teamRosterService.getTeamById(invitation.getTeamId());
+        invitation.setTitle("Invitation de '" + teamRoster.getName() + "' à rejoindre l'équipe");
         return invitationRepository.save(invitation);
     }
     
@@ -80,10 +80,10 @@ public class InvitationService {
         invitation.setStatus(Invitation.InvitationStatus.ACCEPTED);
         invitation = invitationRepository.save(invitation);
         
-        Team team = teamService.getTeamById(invitation.getTeamId());
+        TeamRoster teamRoster = teamRosterService.getTeamById(invitation.getTeamId());
         Player player = playerService.getPlayerById(invitation.getPlayerId());
-        team.getPlayers().add(player);
-        teamService.updateTeam(teamMapper.toDTO(team));
+        teamRoster.getPlayers().add(player);
+        teamRosterService.updateTeam(teamMapper.toDTO(teamRoster));
         return invitation;
     }
     

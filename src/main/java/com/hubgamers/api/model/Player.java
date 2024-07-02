@@ -26,7 +26,7 @@ public class Player {
 	@NoArgsConstructor
 	public static class Participant {
 		
-		public Team team;
+		public TeamRoster teamRoster;
 		
 		public Player player;
 	}
