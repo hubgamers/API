@@ -30,6 +30,11 @@ public class TeamController {
 		return new ResponseJson<>(teamService.getColumns(), HttpStatus.OK.value());
 	}
 	
+	@GetMapping("/count-all")
+	public ResponseJson<Long> countAllTeams() {
+		return new ResponseJson<>(teamService.countAllTeams(), HttpStatus.OK.value());
+	}
+	
 	@GetMapping("/all-public")
 	public ResponseJson<List<Team>> getAllPublicTeams() {
 		return new ResponseJson<>(teamService.getAllPublicTeams(), HttpStatus.OK.value());

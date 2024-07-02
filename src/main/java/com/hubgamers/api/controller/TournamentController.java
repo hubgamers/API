@@ -27,6 +27,11 @@ public class TournamentController {
         return new ResponseJson<>(tournamentService.getColumns(), HttpStatus.OK.value());
     }
     
+    @GetMapping("/count-all")
+    public ResponseJson<Long> countAllTournaments() {
+        return new ResponseJson<>(tournamentService.countAllTournaments(), HttpStatus.OK.value());
+    }
+    
     @GetMapping("/all")
     public ResponseJson<List<Tournament>> getAllTournaments() {
         return new ResponseJson<>(tournamentService.getAllTournaments(), HttpStatus.OK.value());

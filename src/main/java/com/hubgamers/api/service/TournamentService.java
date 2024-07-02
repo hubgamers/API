@@ -40,6 +40,10 @@ public class TournamentService {
 		return tournamentMapper.getColumns();
 	}
 	
+	public Long countAllTournaments() {
+		return tournamentRepository.count();
+	}
+	
 	public List<Tournament> getAllTournaments() {
 //		return tournamentRepository.findAll();
 		return new ArrayList<>();

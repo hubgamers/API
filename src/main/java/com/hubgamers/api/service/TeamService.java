@@ -47,6 +47,10 @@ public class TeamService {
 		return teamMapper.getColumns();
 	}
 	
+	public Long countAllTeams() {
+		return teamRepository.count();
+	}
+	
 	public List<Team> getAllPublicTeams() {
 		return teamRepository.findAllByVisibility(true);
 	}
