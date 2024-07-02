@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -35,9 +37,14 @@ public class TeamRoster {
 	
 	@Column(name = "platform")
 	public String platform;
-	
-//	@Column(name = "team_roster_players")
-//	public List<Player> players = new ArrayList<>();
+
+	@ManyToMany
+	@JoinTable(
+			name = "team_roster_players",
+			joinColumns = @JoinColumn(name = "team_roster_id", nullable = true),
+			inverseJoinColumns = @JoinColumn(name = "player_id", nullable = true)
+	)
+	public List<Player> players;
 	
 	@Column(name = "organizer_id")
 	public Long organizerId;

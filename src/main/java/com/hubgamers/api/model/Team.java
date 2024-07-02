@@ -40,11 +40,11 @@ public class Team {
 	
 	@ManyToMany
 	@JoinTable(
-			name = "team_players",
+			name = "team_users",
 			joinColumns = @JoinColumn(name = "team_id", nullable = true),
-			inverseJoinColumns = @JoinColumn(name = "player_id", nullable = true)
+			inverseJoinColumns = @JoinColumn(name = "user_id", nullable = true)
 	)
-	public List<Player> players;
+	public List<User> users;
 	
 	@Column(name = "organizer_id")
 	public Long organizerId;

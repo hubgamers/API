@@ -81,7 +81,7 @@ public class StripeController {
 		userDTO.setStripeSubscriptionId(subscriptionId);
 		userService.updateUser(userDTO);
 
-		return new ResponseJson<>(session.getUrl(), 200);
+		return new ResponseJson<>(session.getUrl(), 200, 1L);
 	}
 
 
@@ -92,13 +92,13 @@ public class StripeController {
 
 		com.stripe.param.billingportal.SessionCreateParams params =
 				com.stripe.param.billingportal.SessionCreateParams.builder()
-						.setReturnUrl(domain)
+						.setReturnUrl(domain + "/dashboard/subscriptions?success=true")
 						.setCustomer(customer)
 						.build();
 
 		com.stripe.model.billingportal.Session portalSession = com.stripe.model.billingportal.Session.create(params);
 
-		return new ResponseJson<>(portalSession.getUrl(), 200);
+		return new ResponseJson<>(portalSession.getUrl(), 200, 1L);
 	}
 	
 	@GetMapping("/products/user")
