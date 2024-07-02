@@ -1,13 +1,12 @@
 package com.hubgamers.api.model;
 
+import jakarta.persistence.Table;
 import lombok.Data;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document(collection = "games")
+@Table(name = "games")
 public class Game {
-	
-	public String id;
+	public Long id;
 	
 	public String name;
 }

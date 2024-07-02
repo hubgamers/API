@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,27 +48,29 @@ public class TeamRosterService {
 		return teamMapper.getColumns();
 	}
 	
-	public List<TeamRoster> getAllTeams() {
-		return teamRosterRepository.findAll();
+	public List<TeamRoster> getAllPublicTeams() {
+		return teamRosterRepository.findAllByVisibility(true);
 	}
 	
 	public List<TeamRoster> getAllTeamNames(String name) {
 		return teamRosterRepository.findAllByNameLike(name);
 	}
 	
-	public List<TeamRoster> getMyTeams(String organizerId) {
+	public List<TeamRoster> getMyTeams() {
+		Long organizerId = userService.getUserConnected().getId();
 		return teamRosterRepository.findAllByOrganizerId(organizerId);
 	}
 	
-	public TeamRoster getTeamById(String id) {
-		return teamRosterRepository.findById(id).orElse(null);
+	public TeamRoster getTeamById(Long id) {
+//		return teamRosterRepository.findById(id).orElse(null);
+		return null;
 	}
 	
 	public TeamRoster getTeamByName(String name) {
 		return teamRosterRepository.findByName(name).orElse(null);
 	}
 	
-	public TeamRoster getTeamByOwner(String organizerId) {
+	public TeamRoster getTeamByOwner(Long organizerId) {
 		return teamRosterRepository.findByOrganizerId(organizerId).orElse(null);
 	}
 	
@@ -76,7 +79,7 @@ public class TeamRosterService {
 		return teamRosterRepository.save(teamMapper.toEntity(teamDTO));
 	}
 	
-	public TeamRoster uploadBanner(String id, MultipartFile file) {
+	public TeamRoster uploadBanner(Long id, MultipartFile file) {
 		TeamRoster teamRoster = getTeamById(id);
 		if (teamRoster == null) {
 			throw new RuntimeException("Team not found");
@@ -91,7 +94,7 @@ public class TeamRosterService {
 		return teamRosterRepository.save(teamRoster);
 	}
 	
-	public TeamRoster uploadLogo(String id, MultipartFile file) {
+	public TeamRoster uploadLogo(Long id, MultipartFile file) {
 		TeamRoster teamRoster = getTeamById(id);
 		if (teamRoster == null) {
 			throw new RuntimeException("Team not found");
@@ -111,7 +114,7 @@ public class TeamRosterService {
 		for (PlayerDTO playerDTO : teamDTO.getPlayers()) {
 			int index = teamDTO.getPlayers().indexOf(playerDTO);
 			if (playerDTO.getId() != null) {
-				Player playerDb = playerService.getPlayerById(playerDTO.getId());
+				Player playerDb = playerService.getPlayerById(String.valueOf(playerDTO.getId()));
 				playerDTO = playerMapper.toDTO(playerDb);
 				// Remplacer à l'index
 				teamDTO.getPlayers().set(index, playerDTO);
@@ -121,7 +124,7 @@ public class TeamRosterService {
 		return teamRosterRepository.save(teamMapper.toEntity(teamDTO));
 	}
 	
-	public void deleteTeam(String id) {
+	public void deleteTeam(Long id) {
 		teamRosterRepository.delete(getTeamById(id));
 	}
 

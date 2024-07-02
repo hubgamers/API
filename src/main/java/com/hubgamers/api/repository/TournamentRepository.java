@@ -1,13 +1,11 @@
 package com.hubgamers.api.repository;
 
 import com.hubgamers.api.model.Tournament;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-@Repository
-public interface TournamentRepository extends MongoRepository<Tournament, String> {
+public interface TournamentRepository extends CrudRepository<Tournament, String> {
 	
-	List<Tournament> findAllByOrganizerId(String organizerId);
+	List<Tournament> findAllByOrganizerId(Long organizerId);
 }

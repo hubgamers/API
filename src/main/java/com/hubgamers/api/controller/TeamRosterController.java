@@ -30,9 +30,9 @@ public class TeamRosterController {
 		return new ResponseJson<>(teamRosterService.getColumns(), HttpStatus.OK.value());
 	}
 	
-	@GetMapping("/all")
-	public ResponseJson<List<TeamRoster>> getAllTeams() {
-		return new ResponseJson<>(teamRosterService.getAllTeams(), HttpStatus.OK.value());
+	@GetMapping("/all-public")
+	public ResponseJson<List<TeamRoster>> getAllPublicTeams() {
+		return new ResponseJson<>(teamRosterService.getAllPublicTeams(), HttpStatus.OK.value());
 	}
 	
 	@GetMapping("/all/name/{name}")
@@ -42,7 +42,7 @@ public class TeamRosterController {
 	
 	@GetMapping("/my-teams")
 	public ResponseJson<List<TeamRoster>> getMyTeams() {
-		return new ResponseJson<>(teamRosterService.getMyTeams(userService.getUserConnected().getId()), HttpStatus.OK.value());
+		return new ResponseJson<>(teamRosterService.getMyTeams(), HttpStatus.OK.value());
 	}
 	
 	@GetMapping("/name/{name}")

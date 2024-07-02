@@ -2,22 +2,28 @@ package com.hubgamers.api.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Id;
+import jakarta.persistence.*;
 
 @Data
 @NoArgsConstructor
-@Document(collection = "players")
+@Entity
+@Table(name = "players")
 public class Player {
 	@Id
-	public String id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+	@SequenceGenerator(name = "sequenceGenerator")
+	@Column(name = "id")
+	private Long id;
 	
-	@Indexed(unique = true)
+	@Column(name = "username")
 	public String username;
 	
-	public String userId;
+	@Column(name = "user_id")
+	public Long userId;
+
+	@Column(name = "visibility")
+	public boolean visibility;
 	
 	/**
 	 * Un participant de tournoi soit une équipe ou un joueur

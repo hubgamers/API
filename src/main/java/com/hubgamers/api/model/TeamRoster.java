@@ -1,19 +1,19 @@
 package com.hubgamers.api.model;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-@Document(collection = "team_roster")
+@Table(name = "team_roster")
 public class TeamRoster {
 	@Id
-	public String id;
+	public Long id;
 	
 	public String name;
 
@@ -33,7 +33,7 @@ public class TeamRoster {
 	
 	public List<Player> players = new ArrayList<>();
 	
-	public String organizerId;
+	public Long organizerId;
 	
 	public String logo;
 	

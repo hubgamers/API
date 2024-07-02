@@ -31,22 +31,22 @@ public class InvitationController {
     }
     
     @GetMapping("/allByTeamId/{teamId}")
-    public ResponseJson<List<Invitation>> getAllByTeamId(@PathVariable String teamId) {
+    public ResponseJson<List<Invitation>> getAllByTeamId(@PathVariable Long teamId) {
         return new ResponseJson<>(invitationService.getAllByTeamId(teamId), HttpStatus.OK.value());
     }
     
     @GetMapping("/allByPlayerId/{playerId}")
-    public ResponseJson<List<Invitation>> getAllByPlayerId(@PathVariable String playerId) {
+    public ResponseJson<List<Invitation>> getAllByPlayerId(@PathVariable Long playerId) {
         return new ResponseJson<>(invitationService.getAllByPlayerId(playerId), HttpStatus.OK.value());
     }
     
     @GetMapping("/allJoinByTeamId/{teamId}")
-    public ResponseJson<List<Invitation>> getAllJoinInvitationByTeamId(@PathVariable String teamId) {
+    public ResponseJson<List<Invitation>> getAllJoinInvitationByTeamId(@PathVariable Long teamId) {
         return new ResponseJson<>(invitationService.getAllJoinInvitationByTeamId(teamId), HttpStatus.OK.value());
     }
     
     @GetMapping("/allRecruitPlayerByTeamId/{teamId}")
-    public ResponseJson<List<Invitation>> getAllRecruitPlayerInvitationByTeamId(@PathVariable String teamId) {
+    public ResponseJson<List<Invitation>> getAllRecruitPlayerInvitationByTeamId(@PathVariable Long teamId) {
         return new ResponseJson<>(invitationService.getAllRecruitPlayerInvitationByTeamId(teamId), HttpStatus.OK.value());
     }
     

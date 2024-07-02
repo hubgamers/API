@@ -10,6 +10,7 @@ import com.hubgamers.api.repository.InvitationRepository;
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -36,28 +37,30 @@ public class InvitationService {
     }
     
     public List<Invitation> getAll() {
-        return invitationRepository.findAll();
+//        return invitationRepository.findAll();
+        return new ArrayList<>();
+        
     }
     
-    public List<Invitation> getAllByTeamId(String teamId) {
+    public List<Invitation> getAllByTeamId(Long teamId) {
         return invitationRepository.findAllByTeamId(teamId);
     }
     
-    public List<Invitation> getAllByPlayerId(String playerId) {
+    public List<Invitation> getAllByPlayerId(Long playerId) {
         return invitationRepository.findAllByPlayerId(playerId);
     }
     
     /*
     * Récupérer toutes les invitation à rejoindre cette équipe d'autres joueurs
      */
-    public List<Invitation> getAllJoinInvitationByTeamId(String teamId) {
+    public List<Invitation> getAllJoinInvitationByTeamId(Long teamId) {
         return invitationRepository.findAllByTeamIdAndType(teamId, Invitation.InvitationType.JOIN_TEAM);
     }
     
     /*
     * Récupérer toutes les invitation de recrutement de joueurs pour cette équipe
      */
-    public List<Invitation> getAllRecruitPlayerInvitationByTeamId(String teamId) {
+    public List<Invitation> getAllRecruitPlayerInvitationByTeamId(Long teamId) {
         return invitationRepository.findAllByTeamIdAndType(teamId, Invitation.InvitationType.RECRUIT_PLAYER);
     }
     

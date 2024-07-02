@@ -2,23 +2,33 @@ package com.hubgamers.api.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
+
+import jakarta.persistence.*;
 
 @Data
 @NoArgsConstructor
+@Entity
+@Table(name = "invitations")
 public class Invitation {
-    
     @Id
-    public String id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
+    @Column(name = "id")
+    private Long id;
     
+    @Column(name = "title")
     public String title;
     
-    public String playerId;
+    @Column(name = "player_id")
+    public Long playerId;
     
-    public String teamId;
+    @Column(name = "team_id")
+    public Long teamId;
     
+    @Column(name = "status")
     public InvitationStatus status;
     
+    @Column(name = "type")
     public InvitationType type;
     
     public enum InvitationStatus {

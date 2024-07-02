@@ -1,9 +1,7 @@
 package com.hubgamers.api.model.dto;
 
-import com.hubgamers.api.model.Player;
-import com.hubgamers.api.model.Region;
-import com.hubgamers.api.model.SocialMedia;
-import com.hubgamers.api.model.TournamentType;
+import com.hubgamers.api.model.*;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class TournamentDTO {
-	public String id;
+	public Long id;
 	
 	@NotBlank
 	public String name;
@@ -29,7 +27,7 @@ public class TournamentDTO {
 	@NotBlank
 	public LocalDateTime endDate;
 
-	public List<Player.Participant> participants = new ArrayList<>();
+	public List<Participant> participants = new ArrayList<>();
 	
 	public String description;
 
@@ -45,7 +43,7 @@ public class TournamentDTO {
 	public Region region;
 	
 	@NotBlank
-	public String organizerId;
+	public Long organizerId;
 	
 	public String logo;
 	

@@ -1,5 +1,6 @@
 package com.hubgamers.api.service;
 
+import com.hubgamers.api.exception.BadRequestException;
 import com.hubgamers.api.mapper.UserMapper;
 import com.hubgamers.api.model.User;
 import com.hubgamers.api.model.dto.UserDTO;
@@ -7,6 +8,7 @@ import com.hubgamers.api.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,18 +38,20 @@ public class UserService {
 		if (user.isPresent()) {
 			return user.get();
 		} else {
-			throw new RuntimeException("User not found");
+			throw new BadRequestException("User not found");
 		}
 	}
 	
 	public List<User> getAllUsers() {
-		return userRepository.findAll();
+//		return userRepository.findAll();
+		return new ArrayList<>();
+		
 	}
 	
 	public User getUserById(String id) {
 		Optional<User> user = userRepository.findById(id);
 		if (user.isEmpty()) {
-			throw new RuntimeException("User not found");
+			throw new BadRequestException("User not found");
 		}
 		return user.get();
 	}
@@ -55,7 +59,7 @@ public class UserService {
 	public User getUserByUsername(String username) {
 		Optional<User> user = userRepository.findByUsername(username);
 		if (user.isEmpty()) {
-			throw new RuntimeException("User not found");
+			throw new BadRequestException("User not found");
 		}
 		return user.get();
 	}
@@ -63,7 +67,7 @@ public class UserService {
 	public User getUserByLogin(String login) {
 		Optional<User> user = userRepository.findByEmailOrUsername(login, login);
 		if (user.isEmpty()) {
-			throw new RuntimeException("User not found");
+			throw new BadRequestException("User not found");
 		}
 		return user.get();
 	}
