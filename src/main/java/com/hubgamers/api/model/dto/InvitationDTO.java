@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 public class InvitationDTO {
     public Long id;
 
+    public Long userId;
+    
     public Long playerId;
 
     public Long teamId;

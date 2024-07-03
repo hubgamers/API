@@ -18,6 +18,9 @@ public class Invitation {
     
     @Column(name = "title")
     public String title;
+
+    @Column(name = "user_id")
+    public Long userId;
     
     @Column(name = "player_id")
     public Long playerId;
@@ -29,7 +32,7 @@ public class Invitation {
     public Long rosterId;
     
     @Column(name = "status")
-    public InvitationStatus status;
+    public InvitationStatus status = InvitationStatus.PENDING;
     
     @Column(name = "type")
     public InvitationType type;
@@ -41,9 +44,9 @@ public class Invitation {
     }
     
     public enum InvitationType {
-        JOIN_TEAM, // Rejoindre l'équipe
+        JOIN_STAFF, // Rejoindre l'équipe
         JOIN_TEAM_ROSTER, // Rejoindre le roster de l'équipe
-        RECRUIT_USER, // Recruter un utilisateur pour la gestion de l'équipe
+        RECRUIT_STAFF, // Recruter un utilisateur pour la gestion de l'équipe
         RECRUIT_PLAYER // Recruter un joueur pour un roster d'équipe
     }
 }
