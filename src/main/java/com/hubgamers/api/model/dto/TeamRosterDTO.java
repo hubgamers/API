@@ -16,8 +16,6 @@ public class TeamRosterDTO {
 	
 	private boolean visibility;
 	
-	private String paidType;
-	
 	private String game;
 	
 	private String platform;

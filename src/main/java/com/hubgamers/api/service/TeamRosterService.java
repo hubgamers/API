@@ -45,8 +45,7 @@ public class TeamRosterService {
 	}
 	
 	public TeamRoster getTeamRosterById(Long id) {
-//		return teamRosterRepository.findById(id).orElse(null);
-		return null;
+		return teamRosterRepository.findById(id).orElse(null);
 	}
 	
 	public TeamRoster getTeamRosterByName(String name) {

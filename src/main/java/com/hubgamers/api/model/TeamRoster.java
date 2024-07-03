@@ -19,9 +19,6 @@ public class TeamRoster {
 	
 	@Column(name = "name")
 	public String name;
-
-	@Column(name = "tag")
-	public String tag;
 	
 	@Column(name = "description")
 	public String description;
@@ -29,10 +26,7 @@ public class TeamRoster {
 	@Column(name = "visibility")
 	public boolean visibility;
 	
-	@Column(name = "paid_type")
-	public PaidType paidType;
-	
-	@Column(name = "paid_amount")
+	@Column(name = "game")
 	public String game;
 	
 	@Column(name = "platform")
