@@ -8,5 +8,7 @@ import java.util.List;
 public interface PlayerRepository extends CrudRepository<Player, String> {
 	List<Player> findAllByVisibility(boolean isPublic);
 	
+	List<Player> findAllByVisibilityAndUsernameContaining(boolean isPublic, String name);
+	
 	Player findByUserId(Long userId);
 }

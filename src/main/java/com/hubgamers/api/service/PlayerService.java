@@ -38,6 +38,10 @@ public class PlayerService {
 		return playerRepository.findAllByVisibility(true);
 	}
 	
+	public List<Player> getAllPlayersByLikeName(String name) {
+		return playerRepository.findAllByVisibilityAndUsernameContaining(true, name);
+	}
+	
 	public Player getPlayerById(Long id) throws AccountNotFoundException {
 		Optional<Player> optionalPlayer = playerRepository.findById(String.valueOf(id));
 		if (optionalPlayer.isEmpty()) {

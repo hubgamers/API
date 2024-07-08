@@ -30,6 +30,11 @@ public class PlayerController {
         return new ResponseJson<>(playerService.getAllPlayers(), HttpStatus.OK.value());
     }
 
+    @GetMapping("/all/name/{name}")
+    public ResponseJson<List<Player>> getAllPlayersByLikeName(@PathVariable String name) {
+        return new ResponseJson<>(playerService.getAllPlayersByLikeName(name), HttpStatus.OK.value());
+    }
+
     @GetMapping("/username/{username}")
     public ResponseJson<Player> getPlayerByUsername(@PathVariable String username) throws AccountNotFoundException {
         return new ResponseJson<>(playerService.getPlayerByUsername(username), HttpStatus.OK.value());
