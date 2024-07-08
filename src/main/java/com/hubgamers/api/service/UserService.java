@@ -1,15 +1,19 @@
 package com.hubgamers.api.service;
 
+import com.cloudinary.utils.ObjectUtils;
 import com.hubgamers.api.exception.BadRequestException;
 import com.hubgamers.api.mapper.UserMapper;
 import com.hubgamers.api.model.User;
 import com.hubgamers.api.model.dto.UserDTO;
 import com.hubgamers.api.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -18,6 +22,9 @@ public class UserService {
 	private final UserRepository userRepository;
 	
 	private final UserMapper userMapper = new UserMapper();
+	
+	@Autowired
+	private FileService fileService;
 	
 	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
@@ -78,6 +85,18 @@ public class UserService {
 	
 	public User updateUser(UserDTO userDTO) {
 		return userRepository.save(userMapper.toEntity(userDTO));
+	}
+	
+	public void uploadAvatar(MultipartFile file) {
+		User user = getUserConnected();
+		Map params = ObjectUtils.asMap(
+				"folder", "hubgamers/avatar",
+				"use_filename", false,
+				"unique_filename", true,
+				"overwrite", true
+		);
+		user.setAvatar(fileService.addImageCloudinary(file, params).get("url").toString());
+		userRepository.save(user);
 	}
 	
 	public void deleteUser(String id) {

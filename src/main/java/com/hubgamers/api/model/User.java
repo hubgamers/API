@@ -38,6 +38,9 @@ public class User {
 	@Column(name = "roles")
 	public List<Role> roles;
 	
+	@Column(name = "avatar")
+	public String avatar;
+	
 	@Column(name = "stripe_session_id")
 	public String stripeSessionId;
 	

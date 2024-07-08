@@ -6,6 +6,10 @@ public class ResponseJson<T> {
 	private int statusCode;
 	
 	private long exp;
+
+	public ResponseJson(int statusCode) {
+		this.statusCode = statusCode;
+	}
 	
 	public ResponseJson(T data, int statusCode) {
 		this.data = data;

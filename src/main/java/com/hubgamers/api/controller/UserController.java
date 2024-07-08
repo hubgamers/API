@@ -6,6 +6,7 @@ import com.hubgamers.api.response.ResponseJson;
 import com.hubgamers.api.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -42,5 +43,11 @@ public class UserController {
     @PutMapping("/update")
     public ResponseJson<User> updateUser(@RequestBody UserDTO userDTO) {
         return new ResponseJson<>(userService.updateUser(userDTO), HttpStatus.OK.value());
+    }
+    
+    @PostMapping("/avatar/upload")
+    public ResponseJson<User> uploadAvatar(@RequestParam("file") MultipartFile file) {
+        userService.uploadAvatar(file);
+        return new ResponseJson<>(HttpStatus.OK.value());
     }
 }
