@@ -15,4 +15,8 @@ public class PlayerDTO {
 	
 	@NotBlank
 	public Long userId;
+	
+	public String avatar;
+
+	public boolean visibility;
 }

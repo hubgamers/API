@@ -21,6 +21,9 @@ public class Player {
 	
 	@Column(name = "user_id")
 	public Long userId;
+	
+	@Column(name = "avatar")
+	public String avatar;
 
 	@Column(name = "visibility")
 	public boolean visibility;
