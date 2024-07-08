@@ -15,6 +15,8 @@ public class InvitationDTO {
     public Long playerId;
 
     public Long teamId;
+    
+    public Long rosterId;
 
     public Invitation.InvitationStatus status = Invitation.InvitationStatus.PENDING;
 

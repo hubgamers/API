@@ -22,6 +22,8 @@ public class TeamRosterDTO {
 	
 	private Long organizerId;
 	
+	private Long teamId;
+	
 	private String logo;
 	
 	private String banner;

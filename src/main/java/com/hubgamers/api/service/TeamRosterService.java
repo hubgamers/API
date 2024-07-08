@@ -44,6 +44,10 @@ public class TeamRosterService {
 		return teamRosterRepository.findAllByOrganizerId(organizerId);
 	}
 	
+	public List<TeamRoster> getTeamRostersByTeamId(Long teamId) {
+		return teamRosterRepository.findAllByTeamId(teamId);
+	}
+	
 	public TeamRoster getTeamRosterById(Long id) {
 		return teamRosterRepository.findById(id).orElse(null);
 	}

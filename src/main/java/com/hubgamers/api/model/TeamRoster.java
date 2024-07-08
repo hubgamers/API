@@ -43,6 +43,9 @@ public class TeamRoster {
 	@Column(name = "organizer_id")
 	public Long organizerId;
 	
+	@Column(name = "team_id")
+	public Long teamId;
+	
 	@Column(name = "logo")
 	public String logo;
 	

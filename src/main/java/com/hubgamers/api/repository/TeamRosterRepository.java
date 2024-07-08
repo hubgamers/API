@@ -14,6 +14,8 @@ public interface TeamRosterRepository extends CrudRepository<TeamRoster, Long> {
 	
 	List<TeamRoster> findAllByOrganizerId(Long organizerId);
 	
+	List<TeamRoster> findAllByTeamId(Long teamId);
+	
 	List<TeamRoster> findAllByVisibility(boolean visibility);
 	
 	Optional<TeamRoster> findByName(String name);
