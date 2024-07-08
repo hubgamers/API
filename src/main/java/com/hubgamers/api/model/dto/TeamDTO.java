@@ -27,12 +27,6 @@ public class TeamDTO {
 
 	public TeamRoster.PaidType paidType = TeamRoster.PaidType.FREE;
 	
-	@NotBlank
-	public String game;
-	
-	@NotBlank
-	public String platform;
-	
 	public Region region;
 	
 	public List<PlayerDTO> players = new ArrayList<>();

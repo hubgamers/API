@@ -36,12 +36,6 @@ public class Team {
 	@Column(name = "paid_type")
 	public PaidType paidType;
 	
-	@Column(name = "game")
-	public String game;
-	
-	@Column(name = "platform")
-	public String platform;
-	
 	@ManyToMany
 	@JoinTable(
 			name = "team_users",

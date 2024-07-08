@@ -1,6 +1,5 @@
 package com.hubgamers.api.model.dto;
 
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
