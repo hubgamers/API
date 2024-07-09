@@ -2,12 +2,29 @@ version: '3.9'
 
 services:
   postgres:
+    container_name: postgres
+    domainname: hubgamers.alexisbriet.fr
     image: postgres:14-alpine
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - ~/apps/postgres:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=azerty
       - POSTGRES_USER=brietgame
       - POSTGRES_DB=hubgamers
+
+  spring-boot-app:
+    container_name: spring-boot-app
+    domainname: hubgamers.alexisbriet.fr
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/hubgamers
+      - SPRING_DATASOURCE_USERNAME=brietgame
+      - SPRING_DATASOURCE_PASSWORD=azerty
