@@ -6,6 +6,7 @@ import com.hubgamers.api.mapper.TeamRosterMapper;
 import com.hubgamers.api.model.*;
 import com.hubgamers.api.model.dto.InvitationDTO;
 import com.hubgamers.api.repository.InvitationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.AccountNotFoundException;
@@ -15,28 +16,26 @@ import java.util.List;
 @Service
 public class InvitationService {
     
-    private final InvitationRepository invitationRepository;
-    
-    private final TeamService teamService;
-    
-    private final TeamRosterService teamRosterService;
-    
-    private final PlayerService playerService;
+    @Autowired
+    private InvitationRepository invitationRepository;
+
+    @Autowired
+    private TeamService teamService;
+
+    @Autowired
+    private TeamRosterService teamRosterService;
+
+    @Autowired
+    private PlayerService playerService;
+
+    @Autowired
+    private UserService userService;
     
     private final TeamMapper teamMapper = new TeamMapper();
     
     private final TeamRosterMapper teamRosterMapper = new TeamRosterMapper();
     
     private final InvitationMapper invitationMapper = new InvitationMapper();
-    private final UserService userService;
-
-    public InvitationService(InvitationRepository invitationRepository, TeamService teamService, TeamRosterService teamRosterService, PlayerService playerService, UserService userService) {
-        this.invitationRepository = invitationRepository;
-		this.teamService = teamService;
-		this.teamRosterService = teamRosterService;
-		this.playerService = playerService;
-        this.userService = userService;
-    }
 
     public List<String> getColumns() {
         return invitationMapper.getColumns();
