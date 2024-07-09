@@ -2,13 +2,16 @@ package com.hubgamers.api.service;
 
 import com.cloudinary.utils.ObjectUtils;
 import com.hubgamers.api.mapper.TournamentMapper;
-import com.hubgamers.api.model.dto.ParticipantDTO;
+import com.hubgamers.api.model.Participant;
+import com.hubgamers.api.model.Player;
 import com.hubgamers.api.model.Tournament;
+import com.hubgamers.api.model.dto.TournamentDTO;
 import com.hubgamers.api.repository.TournamentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +25,9 @@ public class TournamentService {
 	@Autowired
 	private FileService fileService;
 	
+	@Autowired
+	private UserService userService;
+	
 	public TournamentService(TournamentRepository tournamentRepository) {
 		this.tournamentRepository = tournamentRepository;
 	}
@@ -34,27 +40,38 @@ public class TournamentService {
 		return tournamentMapper.getColumns();
 	}
 	
+	public Long countAllTournaments() {
+		return tournamentRepository.count();
+	}
+	
 	public List<Tournament> getAllTournaments() {
-		return tournamentRepository.findAll();
+//		return tournamentRepository.findAll();
+		return new ArrayList<>();
+		
+	}
+	
+	public List<Tournament> getMyTournaments() {
+		return tournamentRepository.findAllByOrganizerId(userService.getUserConnected().getId());
 	}
 	
 	public Tournament getTournamentById(String id) {
 		return tournamentRepository.findById(id).orElse(null);
 	}
 	
-	public Tournament createTournament(Tournament tournament) {
-		return tournamentRepository.save(tournament);
+	public Tournament createTournament(TournamentDTO tournamentDTO) {
+		tournamentDTO.setOrganizerId(userService.getUserConnected().getId());
+		return tournamentRepository.save(tournamentMapper.toEntity(tournamentDTO));
 	}
 	
-	public Tournament addParticipant(String id, ParticipantDTO participantDTO) {
+	public Tournament addParticipant(String id, Participant participant) {
 		Tournament tournament = getTournamentById(id);
 		if (tournament == null) {
 			throw new RuntimeException("Tournament not found");
 		}
-		if (participantDTO.getPlayer() == null && participantDTO.getTeam() == null) {
-			throw new RuntimeException("Team or player is required");
-		}
-		tournament.getParticipantDTOS().add(participantDTO);
+//		if (participant.getPlayer() == null && participant.getTeamRoster() == null) {
+//			throw new RuntimeException("Team or player is required");
+//		}
+		tournament.getParticipants().add(participant);
 		return tournamentRepository.save(tournament);
 	}
 	

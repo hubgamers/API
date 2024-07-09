@@ -1,17 +1,15 @@
 package com.hubgamers.api.repository;
 
 import com.hubgamers.api.model.Invitation;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-@Repository
-public interface InvitationRepository extends MongoRepository<Invitation, String> {
+public interface InvitationRepository extends CrudRepository<Invitation, String> {
     
-    List<Invitation> findAllByTeamId(String teamId);
+    List<Invitation> findAllByTeamId(Long teamId);
     
-    List<Invitation> findAllByPlayerId(String playerId);
+    List<Invitation> findAllByPlayerId(Long playerId);
     
-    List<Invitation> findAllByTeamIdAndType(String teamId, Invitation.InvitationType type);
+    List<Invitation> findAllByTeamIdAndType(Long teamId, Invitation.InvitationType type);
 }

@@ -2,41 +2,58 @@ package com.hubgamers.api.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Id;
-import java.util.ArrayList;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-@Document(collection = "teams")
+@Entity
+@Table(name = "teams")
 public class Team {
 	@Id
-	public String id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+	@SequenceGenerator(name = "sequenceGenerator")
+	@Column(name = "id")
+	private Long id;
 	
+	@Column(name = "name")
 	public String name;
 	
+	@ManyToMany
+	@JoinTable(
+			name = "team_tag",
+			joinColumns = @JoinColumn(name = "team_id"),
+			inverseJoinColumns = @JoinColumn(name = "tag_id"))
+	public List<Tag> tags;
+	
+	@Column(name = "description")
 	public String description;
 	
+	@Column(name = "visibility")
+	public boolean visibility = true;
+	
+	@Column(name = "paid_type")
 	public PaidType paidType;
 	
-	public String game;
+	@ManyToMany
+	@JoinTable(
+			name = "team_users",
+			joinColumns = @JoinColumn(name = "team_id", nullable = true),
+			inverseJoinColumns = @JoinColumn(name = "user_id", nullable = true)
+	)
+	public List<User> users;
 	
-	public String platform;
+	@Column(name = "organizer_id")
+	public Long organizerId;
 	
-	public Region region;
-	
-	public List<Player> players = new ArrayList<>();
-	
-	public String organizerId;
-	
+	@Column(name = "logo")
 	public String logo;
 	
+	@Column(name = "banner")
 	public String banner;
 	
-	public SocialMedia socialMedia;
-	
+	@ManyToMany
 	public List<Invitation> invitations;
 	
 	public enum PaidType {

@@ -1,5 +1,6 @@
 package com.hubgamers.api.service;
 
+import com.hubgamers.api.exception.BadRequestException;
 import com.hubgamers.api.model.AuthRequest;
 import com.hubgamers.api.model.AuthResponse;
 import com.hubgamers.api.model.Role;
@@ -30,11 +31,11 @@ public class AuthService {
 		this.userService = new UserService(userRepository);
 	}
 	
-	public User register(AuthRequest authRequest) throws AccountNotFoundException {
+	public User register(AuthRequest authRequest) throws BadRequestException {
 		if (userRepository.existsByUsername(authRequest.getUsername())) {
-			throw new AccountNotFoundException("Username already exists");
+			throw new BadRequestException("Username already exists");
 		} else if (userRepository.existsByEmail(authRequest.getEmail())) {
-			throw new AccountNotFoundException("Email already exists");
+			throw new BadRequestException("Email already exists");
 		}
 		UserDTO userDTO = new UserDTO();
 		userDTO.setUsername(authRequest.getUsername());
@@ -51,7 +52,7 @@ public class AuthService {
 		AuthResponse authResponse = new AuthResponse();
 		authResponse.setJwtToken(jwtService.generateToken(username));
 		authResponse.setRefreshToken(user.getRefreshToken());
-		authResponse.setUserId(user.getId());
+		authResponse.setUserId(String.valueOf(user.getId()));
 		authResponse.setUsername(user.getUsername());
 		return authResponse;
 	}

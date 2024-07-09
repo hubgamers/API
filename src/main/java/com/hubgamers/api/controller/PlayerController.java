@@ -30,18 +30,23 @@ public class PlayerController {
         return new ResponseJson<>(playerService.getAllPlayers(), HttpStatus.OK.value());
     }
 
+    @GetMapping("/all/name/{name}")
+    public ResponseJson<List<Player>> getAllPlayersByLikeName(@PathVariable String name) {
+        return new ResponseJson<>(playerService.getAllPlayersByLikeName(name), HttpStatus.OK.value());
+    }
+
     @GetMapping("/username/{username}")
     public ResponseJson<Player> getPlayerByUsername(@PathVariable String username) throws AccountNotFoundException {
         return new ResponseJson<>(playerService.getPlayerByUsername(username), HttpStatus.OK.value());
     }
 
     @GetMapping("/id/{id}")
-    public ResponseJson<Player> getPlayerById(@PathVariable String id) throws AccountNotFoundException {
+    public ResponseJson<Player> getPlayerById(@PathVariable Long id) throws AccountNotFoundException {
         return new ResponseJson<>(playerService.getPlayerById(id), HttpStatus.OK.value());
     }
     
     @GetMapping("/userId/{userId}")
-    public ResponseJson<Player> getPlayerByUserId(@PathVariable String userId) throws AccountNotFoundException {
+    public ResponseJson<Player> getPlayerByUserId(@PathVariable Long userId) throws AccountNotFoundException {
         return new ResponseJson<>(playerService.getPlayerByUserId(userId), HttpStatus.OK.value());
     }
 
@@ -56,7 +61,7 @@ public class PlayerController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deletePlayer(String id) throws AccountNotFoundException {
+    public void deletePlayer(Long id) throws AccountNotFoundException {
         playerService.deletePlayer(id);
     }
 }

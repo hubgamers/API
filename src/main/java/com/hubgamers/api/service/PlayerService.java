@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,18 +35,22 @@ public class PlayerService {
 	}
 	
 	public List<Player> getAllPlayers() {
-		return playerRepository.findAll();
+		return playerRepository.findAllByVisibility(true);
 	}
 	
-	public Player getPlayerById(String id) throws AccountNotFoundException {
-		Optional<Player> optionalPlayer = playerRepository.findById(id);
+	public List<Player> getAllPlayersByLikeName(String name) {
+		return playerRepository.findAllByVisibilityAndUsernameContaining(true, name);
+	}
+	
+	public Player getPlayerById(Long id) throws AccountNotFoundException {
+		Optional<Player> optionalPlayer = playerRepository.findById(String.valueOf(id));
 		if (optionalPlayer.isEmpty()) {
 			throw new AccountNotFoundException("Player not found");
 		}
 		return optionalPlayer.get();
 	}
 	
-	public Player getPlayerByUserId(String userId) throws AccountNotFoundException {
+	public Player getPlayerByUserId(Long userId) throws AccountNotFoundException {
 		Optional<Player> optionalPlayer = Optional.ofNullable(playerRepository.findByUserId(userId));
 		if (optionalPlayer.isEmpty()) {
 			throw new AccountNotFoundException("Player not found");
@@ -65,7 +70,7 @@ public class PlayerService {
 		return playerRepository.save(playerMapper.toEntity(playerDTO));
 	}
 	
-	public void deletePlayer(String id) throws AccountNotFoundException {
+	public void deletePlayer(Long id) throws AccountNotFoundException {
 		playerRepository.delete(getPlayerById(id));
 	}
 }

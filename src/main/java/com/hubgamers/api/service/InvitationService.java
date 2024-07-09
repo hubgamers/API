@@ -2,73 +2,85 @@ package com.hubgamers.api.service;
 
 import com.hubgamers.api.mapper.InvitationMapper;
 import com.hubgamers.api.mapper.TeamMapper;
-import com.hubgamers.api.model.Invitation;
-import com.hubgamers.api.model.Player;
-import com.hubgamers.api.model.Team;
+import com.hubgamers.api.mapper.TeamRosterMapper;
+import com.hubgamers.api.model.*;
 import com.hubgamers.api.model.dto.InvitationDTO;
 import com.hubgamers.api.repository.InvitationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.AccountNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class InvitationService {
     
-    private final InvitationRepository invitationRepository;
-    
-    private final TeamService teamService;
-    
-    private final PlayerService playerService;
+    @Autowired
+    private InvitationRepository invitationRepository;
+
+    @Autowired
+    private TeamService teamService;
+
+    @Autowired
+    private TeamRosterService teamRosterService;
+
+    @Autowired
+    private PlayerService playerService;
+
+    @Autowired
+    private UserService userService;
     
     private final TeamMapper teamMapper = new TeamMapper();
     
-    private final InvitationMapper invitationMapper = new InvitationMapper();
+    private final TeamRosterMapper teamRosterMapper = new TeamRosterMapper();
     
-    public InvitationService(InvitationRepository invitationRepository, TeamService teamService, PlayerService playerService) {
-        this.invitationRepository = invitationRepository;
-		this.teamService = teamService;
-		this.playerService = playerService;
-	}
+    private final InvitationMapper invitationMapper = new InvitationMapper();
 
     public List<String> getColumns() {
         return invitationMapper.getColumns();
     }
     
     public List<Invitation> getAll() {
-        return invitationRepository.findAll();
+//        return invitationRepository.findAll();
+        return new ArrayList<>();
+        
     }
     
-    public List<Invitation> getAllByTeamId(String teamId) {
+    public List<Invitation> getAllByTeamId(Long teamId) {
         return invitationRepository.findAllByTeamId(teamId);
     }
     
-    public List<Invitation> getAllByPlayerId(String playerId) {
+    public List<Invitation> getAllByPlayerId(Long playerId) {
         return invitationRepository.findAllByPlayerId(playerId);
     }
     
-    /*
-    * Récupérer toutes les invitation à rejoindre cette équipe d'autres joueurs
-     */
-    public List<Invitation> getAllJoinInvitationByTeamId(String teamId) {
-        return invitationRepository.findAllByTeamIdAndType(teamId, Invitation.InvitationType.JOIN_TEAM);
-    }
-    
-    /*
-    * Récupérer toutes les invitation de recrutement de joueurs pour cette équipe
-     */
-    public List<Invitation> getAllRecruitPlayerInvitationByTeamId(String teamId) {
-        return invitationRepository.findAllByTeamIdAndType(teamId, Invitation.InvitationType.RECRUIT_PLAYER);
+    public List<Invitation> getAllInvitationsByTeamIdAndType(Long teamId, Invitation.InvitationType type) {
+        return invitationRepository.findAllByTeamIdAndType(teamId, type);
     }
     
     public Invitation getInvitationById(String id) {
         return invitationRepository.findById(id).orElse(null);
     }
 
-    public Invitation createInvitation(InvitationDTO invitationDTO) {
+    public Invitation createInvitation(InvitationDTO invitationDTO) throws AccountNotFoundException {
         Invitation invitation = invitationMapper.toEntity(invitationDTO);
-        Team team = teamService.getTeamById(invitation.getTeamId());
-        invitation.setTitle("Invitation de '" + team.getName() + "' à rejoindre l'équipe");
+        if (invitation.getType().equals(Invitation.InvitationType.RECRUIT_STAFF)) {
+            // Invitation de recrutement dans le staff
+            Team team = teamService.getTeamById(invitation.getTeamId());
+            invitation.setTitle("Invitation de '" + team.getName() + "' à rejoindre le staff");
+        } else if (invitation.getType().equals(Invitation.InvitationType.RECRUIT_PLAYER)) {
+            // Invitation de recrutement de joueur
+            TeamRoster teamRoster = teamRosterService.getTeamRosterById(invitation.getTeamId());
+            invitation.setTitle("Invitation de '" + teamRoster.getName() + "' à rejoindre l'équipe");
+        } else if (invitation.getType().equals(Invitation.InvitationType.JOIN_STAFF)) {
+            // Invitation de rejoindre l'équipe (staff)
+            invitation.setTitle("Invitation de '" + userService.getUserConnected().getUsername() + "' à rejoindre le staff");
+        } else if (invitation.getType().equals(Invitation.InvitationType.JOIN_TEAM_ROSTER)) {
+            // Invitation de rejoindre l'équipe (joueur)
+            Player player = playerService.getPlayerById(invitation.getPlayerId());
+            invitation.setTitle("Invitation de '" + player.getUsername() + "' à rejoindre l'équipe");
+        }
         return invitationRepository.save(invitation);
     }
     
@@ -80,10 +92,17 @@ public class InvitationService {
         invitation.setStatus(Invitation.InvitationStatus.ACCEPTED);
         invitation = invitationRepository.save(invitation);
         
-        Team team = teamService.getTeamById(invitation.getTeamId());
-        Player player = playerService.getPlayerById(invitation.getPlayerId());
-        team.getPlayers().add(player);
-        teamService.updateTeam(teamMapper.toDTO(team));
+        if (invitation.getType().equals(Invitation.InvitationType.JOIN_STAFF)) {
+            Team team = teamService.getTeamById(invitation.getTeamId());
+            User user = userService.getUserById(String.valueOf(invitation.getUserId()));
+            team.getUsers().add(user);
+            teamService.updateTeam(teamMapper.toDTO(team));
+        } else if (invitation.getType().equals(Invitation.InvitationType.JOIN_TEAM_ROSTER)) {
+            TeamRoster teamRoster = teamRosterService.getTeamRosterById(invitation.getTeamId());
+            Player player = playerService.getPlayerById(invitation.getPlayerId());
+            teamRoster.getPlayers().add(player);
+            teamRosterService.updateTeamRoster(teamRosterMapper.toDTO(teamRoster));
+        }
         return invitation;
     }
     

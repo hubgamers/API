@@ -1,7 +1,9 @@
 package com.hubgamers.api.controller;
 
-import com.hubgamers.api.model.dto.ParticipantDTO;
+import com.hubgamers.api.model.Participant;
+import com.hubgamers.api.model.Player;
 import com.hubgamers.api.model.Tournament;
+import com.hubgamers.api.model.dto.TournamentDTO;
 import com.hubgamers.api.response.ResponseJson;
 import com.hubgamers.api.service.TournamentService;
 import org.springframework.http.HttpStatus;
@@ -25,9 +27,19 @@ public class TournamentController {
         return new ResponseJson<>(tournamentService.getColumns(), HttpStatus.OK.value());
     }
     
+    @GetMapping("/count-all")
+    public ResponseJson<Long> countAllTournaments() {
+        return new ResponseJson<>(tournamentService.countAllTournaments(), HttpStatus.OK.value());
+    }
+    
     @GetMapping("/all")
     public ResponseJson<List<Tournament>> getAllTournaments() {
         return new ResponseJson<>(tournamentService.getAllTournaments(), HttpStatus.OK.value());
+    }
+    
+    @GetMapping("/my-tournaments")
+    public ResponseJson<List<Tournament>> getMyTournaments() {
+        return new ResponseJson<>(tournamentService.getMyTournaments(), HttpStatus.OK.value());
     }
     
     @GetMapping("/id/{id}")
@@ -36,13 +48,13 @@ public class TournamentController {
     }
     
     @PostMapping("/addParticipant/{id}")
-    public ResponseJson<Tournament> addParticipant(@PathVariable String id, @RequestBody ParticipantDTO participantDTO) {
-        return new ResponseJson<>(tournamentService.addParticipant(id, participantDTO), HttpStatus.OK.value());
+    public ResponseJson<Tournament> addParticipant(@PathVariable String id, @RequestBody Participant participant) {
+        return new ResponseJson<>(tournamentService.addParticipant(id, participant), HttpStatus.OK.value());
     }
     
     @PostMapping("/create")
-    public ResponseJson<Tournament> createTournament(@RequestBody Tournament tournament) {
-        return new ResponseJson<>(tournamentService.createTournament(tournament), HttpStatus.CREATED.value());
+    public ResponseJson<Tournament> createTournament(@RequestBody TournamentDTO tournamentDTO) {
+        return new ResponseJson<>(tournamentService.createTournament(tournamentDTO), HttpStatus.CREATED.value());
     }
     
     @PostMapping("/banner/upload/{id}")

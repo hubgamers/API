@@ -31,23 +31,53 @@ public class InvitationController {
     }
     
     @GetMapping("/allByTeamId/{teamId}")
-    public ResponseJson<List<Invitation>> getAllByTeamId(@PathVariable String teamId) {
+    public ResponseJson<List<Invitation>> getAllByTeamId(@PathVariable Long teamId) {
         return new ResponseJson<>(invitationService.getAllByTeamId(teamId), HttpStatus.OK.value());
     }
     
     @GetMapping("/allByPlayerId/{playerId}")
-    public ResponseJson<List<Invitation>> getAllByPlayerId(@PathVariable String playerId) {
+    public ResponseJson<List<Invitation>> getAllByPlayerId(@PathVariable Long playerId) {
         return new ResponseJson<>(invitationService.getAllByPlayerId(playerId), HttpStatus.OK.value());
     }
-    
-    @GetMapping("/allJoinByTeamId/{teamId}")
-    public ResponseJson<List<Invitation>> getAllJoinInvitationByTeamId(@PathVariable String teamId) {
-        return new ResponseJson<>(invitationService.getAllJoinInvitationByTeamId(teamId), HttpStatus.OK.value());
+
+    /**
+     * Récupérer toutes les invitations de staff en rapport à une équipe
+     * @param teamId
+     * @return
+     */
+    @GetMapping("/allJoinStaffByTeamId/{teamId}")
+    public ResponseJson<List<Invitation>> getAllJoinStaffInvitationByTeamId(@PathVariable Long teamId) {
+        return new ResponseJson<>(invitationService.getAllInvitationsByTeamIdAndType(teamId, Invitation.InvitationType.JOIN_STAFF), HttpStatus.OK.value());
     }
-    
+
+    /**
+     * Récupérer toutes les invitations de staff en rapport à une équipe
+     * @param teamId
+     * @return
+     */
+    @GetMapping("/allJoinTeamRosterByTeamId/{teamId}")
+    public ResponseJson<List<Invitation>> getAllJoinTeamRosterInvitationByTeamId(@PathVariable Long teamId) {
+        return new ResponseJson<>(invitationService.getAllInvitationsByTeamIdAndType(teamId, Invitation.InvitationType.JOIN_TEAM_ROSTER), HttpStatus.OK.value());
+    }
+
+    /**
+     * Récupérer toutes les invitations de recrutement de joueur en rapport à une équipe
+     * @param teamId
+     * @return
+     */
+    @GetMapping("/allRecruitStaffByTeamId/{teamId}")
+    public ResponseJson<List<Invitation>> getAllRecruitStaffInvitationByTeamId(@PathVariable Long teamId) {
+        return new ResponseJson<>(invitationService.getAllInvitationsByTeamIdAndType(teamId, Invitation.InvitationType.RECRUIT_STAFF), HttpStatus.OK.value());
+    }
+
+    /**
+     * Récupérer toutes les invitations de recrutement de joueur en rapport à une équipe
+     * @param teamId
+     * @return
+     */
     @GetMapping("/allRecruitPlayerByTeamId/{teamId}")
-    public ResponseJson<List<Invitation>> getAllRecruitPlayerInvitationByTeamId(@PathVariable String teamId) {
-        return new ResponseJson<>(invitationService.getAllRecruitPlayerInvitationByTeamId(teamId), HttpStatus.OK.value());
+    public ResponseJson<List<Invitation>> getAllRecruitPlayerInvitationByTeamId(@PathVariable Long teamId) {
+        return new ResponseJson<>(invitationService.getAllInvitationsByTeamIdAndType(teamId, Invitation.InvitationType.RECRUIT_PLAYER), HttpStatus.OK.value());
     }
     
     @GetMapping("/{id}")
@@ -56,12 +86,12 @@ public class InvitationController {
     }
     
     @PostMapping("/create")
-    public ResponseJson<Invitation> createInvitation(@RequestBody InvitationDTO invitationDTO) {
+    public ResponseJson<Invitation> createInvitation(@RequestBody InvitationDTO invitationDTO) throws AccountNotFoundException {
         return new ResponseJson<>(invitationService.createInvitation(invitationDTO), HttpStatus.CREATED.value());
     }
     
     @PutMapping("/update")
-    public ResponseJson<Invitation> updateInvitation(@RequestBody InvitationDTO invitationDTO) {
+    public ResponseJson<Invitation> updateInvitation(@RequestBody InvitationDTO invitationDTO) throws AccountNotFoundException {
         return new ResponseJson<>(invitationService.createInvitation(invitationDTO), HttpStatus.OK.value());
     }
     

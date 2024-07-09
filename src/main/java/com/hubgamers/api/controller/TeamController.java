@@ -1,7 +1,6 @@
 package com.hubgamers.api.controller;
 
 import com.hubgamers.api.model.Team;
-import com.hubgamers.api.model.User;
 import com.hubgamers.api.model.dto.TeamDTO;
 import com.hubgamers.api.response.ResponseJson;
 import com.hubgamers.api.service.TeamService;
@@ -31,9 +30,14 @@ public class TeamController {
 		return new ResponseJson<>(teamService.getColumns(), HttpStatus.OK.value());
 	}
 	
-	@GetMapping("/all")
-	public ResponseJson<List<Team>> getAllTeams() {
-		return new ResponseJson<>(teamService.getAllTeams(), HttpStatus.OK.value());
+	@GetMapping("/count-all")
+	public ResponseJson<Long> countAllTeams() {
+		return new ResponseJson<>(teamService.countAllTeams(), HttpStatus.OK.value());
+	}
+	
+	@GetMapping("/all-public")
+	public ResponseJson<List<Team>> getAllPublicTeams() {
+		return new ResponseJson<>(teamService.getAllPublicTeams(), HttpStatus.OK.value());
 	}
 	
 	@GetMapping("/all/name/{name}")
@@ -43,7 +47,7 @@ public class TeamController {
 	
 	@GetMapping("/my-teams")
 	public ResponseJson<List<Team>> getMyTeams() {
-		return new ResponseJson<>(teamService.getMyTeams(userService.getUserConnected().getId()), HttpStatus.OK.value());
+		return new ResponseJson<>(teamService.getMyTeams(), HttpStatus.OK.value());
 	}
 	
 	@GetMapping("/name/{name}")
@@ -52,12 +56,12 @@ public class TeamController {
 	}
 	
 	@GetMapping("/id/{id}")
-	public ResponseJson<Team> getTeamById(@PathVariable String id) {
+	public ResponseJson<Team> getTeamById(@PathVariable Long id) {
 		return new ResponseJson<>(teamService.getTeamById(id), HttpStatus.OK.value());
 	}
 	
 	@GetMapping("/owner/{organizerId}")
-	public ResponseJson<Team> getTeamByOwner(@PathVariable String organizerId) {
+	public ResponseJson<Team> getTeamByOwner(@PathVariable Long organizerId) {
 		return new ResponseJson<>(teamService.getTeamByOwner(organizerId), HttpStatus.OK.value());
 	}
 	
@@ -67,12 +71,12 @@ public class TeamController {
 	}
 	
 	@PostMapping("/banner/upload/{id}")
-	public ResponseJson<Team> uploadBanner(@PathVariable String id, @RequestParam("file") MultipartFile file) {
+	public ResponseJson<Team> uploadBanner(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
 		return new ResponseJson<>(teamService.uploadBanner(id, file), HttpStatus.OK.value());
 	}
 	
 	@PostMapping("/logo/upload/{id}")
-	public ResponseJson<Team> uploadLogo(@PathVariable String id, @RequestParam("file") MultipartFile file) {
+	public ResponseJson<Team> uploadLogo(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
 		return new ResponseJson<>(teamService.uploadLogo(id, file), HttpStatus.OK.value());
 	}
 	
@@ -82,7 +86,7 @@ public class TeamController {
 	}
 	
 	@PostMapping("/delete/{id}")
-	public void deleteTeam(@PathVariable String id) {
+	public void deleteTeam(@PathVariable Long id) {
 		teamService.deleteTeam(id);
 	}
 }

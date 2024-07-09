@@ -1,6 +1,7 @@
 package com.hubgamers.api.mapper;
 
 import com.hubgamers.api.model.Team;
+import com.hubgamers.api.model.TeamRoster;
 import com.hubgamers.api.model.dto.TeamDTO;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;

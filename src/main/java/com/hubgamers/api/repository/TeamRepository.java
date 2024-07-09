@@ -1,22 +1,21 @@
 package com.hubgamers.api.repository;
 
 import com.hubgamers.api.model.Team;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Repository
-public interface TeamRepository extends MongoRepository<Team, String> {
+public interface TeamRepository extends CrudRepository<Team, Long> {
 	
-	@Query("{'name': {$regex: ?0, $options: 'i'}}")
+//	@Query("{'name': {$regex: ?0, $options: 'i'}}")
 	List<Team> findAllByNameLike(String name);
 	
-	List<Team> findAllByOrganizerId(String organizerId);
+	List<Team> findAllByOrganizerId(Long organizerId);
+	
+	List<Team> findAllByVisibility(boolean visibility);
 	
 	Optional<Team> findByName(String name);
 	
-	Optional<Team> findByOrganizerId(String organizerId);
+	Optional<Team> findByOrganizerId(Long organizerId);
 }

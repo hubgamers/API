@@ -7,11 +7,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class PlayerDTO {
-	public String id;
+	public Long id;
 	
 	@NotBlank
 	public String username;
 	
 	@NotBlank
-	public String userId;
+	public Long userId;
+	
+	public String avatar;
+
+	public boolean visibility;
 }

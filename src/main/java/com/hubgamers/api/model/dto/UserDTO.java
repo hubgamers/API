@@ -1,17 +1,17 @@
 package com.hubgamers.api.model.dto;
 
 import com.hubgamers.api.model.Role;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.index.Indexed;
 
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 public class UserDTO {
-	public String id;
+	public Long id;
 	
 	@NotNull
 	public String username;
@@ -22,9 +22,14 @@ public class UserDTO {
 	public String password;
 	
 	@NotNull
-	@Indexed(unique = true)
 	public String email;
 	
 	@NotNull
 	public List<Role> roles;
+	
+	public String stripeSessionId;
+	
+	public String stripePriceId;
+
+	public String stripeSubscriptionId;
 }
