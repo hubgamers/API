@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  postgres:
+    container_name: postgres
+    domainname: hubgamers.alexisbriet.fr
+    image: postgres:14-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - ~/apps/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=azerty
+      - POSTGRES_USER=brietgame
+      - POSTGRES_DB=hubgamers
+
+  spring-boot-app:
+    container_name: spring-boot-app
+    domainname: hubgamers.alexisbriet.fr
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      - jwt.secret=${JWT_SECRET}
+      - spring.mvc.pathmatch.matching-strategy=ant_path_matcher
+      - cloudinary_url=${CLOUDINARY_URL}
+      - stripe.api.key=${STRIPE_API_KEY}
+      - stripe.webhook.secret=${STRIPE_WEBHOOK_SECRET}
+      - stripe.endpointSecret=${STRIPE_ENDPOINT_SECRET}
+      - stripe.domain=${STRIPE_DOMAIN}
+      - app.domain=${APP_DOMAIN}
+      - app.admin.email=${APP_ADMIN_EMAIL}
+      - app.admin.password=${APP_ADMIN_PASSWORD}
+      - app.admin.username=${APP_ADMIN_USERNAME}
+      - spring.datasource.url=${SPRING_DATASOURCE_URL}
+      - spring.datasource.username=${SPRING_DATASOURCE_USERNAME}
+      - spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}
+      - spring.datasource.driver-class-name=org.postgresql.Driver
+      - spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+    
