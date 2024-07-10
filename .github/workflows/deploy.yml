@@ -37,9 +37,25 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/spring-boot-app:latest -f docker/Dockerfile .
           docker push ${{ secrets.DOCKER_USERNAME }}/spring-boot-app:latest
-      - name: Generate docker-compose.yml with secrets
+          
+      - name: Generate docker-compose.yml with secrets using sed
         run: |
-          envsubst < docker/docker-compose-prod.yml > docker/docker-compose.yml
+          sed -e "s|\${JWT_SECRET}|${{ secrets.JWT_SECRET }}|g" \
+              -e "s|\${CLOUDINARY_URL}|${{ secrets.CLOUDINARY_URL }}|g" \
+              -e "s|\${STRIPE_API_KEY}|${{ secrets.STRIPE_API_KEY }}|g" \
+              -e "s|\${STRIPE_WEBHOOK_SECRET}|${{ secrets.STRIPE_WEBHOOK_SECRET }}|g" \
+              -e "s|\${STRIPE_ENDPOINT_SECRET}|${{ secrets.STRIPE_ENDPOINT_SECRET }}|g" \
+              -e "s|\${STRIPE_DOMAIN}|${{ secrets.STRIPE_DOMAIN }}|g" \
+              -e "s|\${APP_DOMAIN}|${{ secrets.APP_DOMAIN }}|g" \
+              -e "s|\${APP_ADMIN_EMAIL}|${{ secrets.APP_ADMIN_EMAIL }}|g" \
+              -e "s|\${APP_ADMIN_PASSWORD}|${{ secrets.APP_ADMIN_PASSWORD }}|g" \
+              -e "s|\${APP_ADMIN_USERNAME}|${{ secrets.APP_ADMIN_USERNAME }}|g" \
+              -e "s|\${SPRING_DATASOURCE_URL}|${{ secrets.SPRING_DATASOURCE_URL }}|g" \
+              -e "s|\${SPRING_DATASOURCE_USERNAME}|${{ secrets.SPRING_DATASOURCE_USERNAME }}|g" \
+              -e "s|\${SPRING_DATASOURCE_PASSWORD}|${{ secrets.SPRING_DATASOURCE_PASSWORD }}|g" \
+              docker/docker-compose-prod.yml > docker/docker-compose.yml
+
+          
       - name: Copy Dockerfile to server
         uses: appleboy/scp-action@master
         with:
