@@ -5,7 +5,7 @@ FROM openjdk:17-oracle
 WORKDIR /app
 
 # Copier le jar de l'application Spring Boot dans le conteneur
-COPY target/hubgamers-0.0.1-SNAPSHOT.jar app.jar
+COPY target/hubgamers.jar app.jar
 
 # Exposer le port 8080 pour l'application Spring Boot
 EXPOSE 8080
