@@ -45,7 +45,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_SSH_PORT }}
           source: "docker/docker-compose-prod.yml"  # Chemin local du fichier docker-compose-prod.yml
-          target: "~/docker/docker-compose-prod.yml"  # Chemin sur le serveur distant (utilisation du répertoire home)
+          target: "~/docker-compose-prod.yml"  # Chemin sur le serveur distant (utilisation du répertoire home)
 
       - name: Install Docker Compose on server
         uses: appleboy/ssh-action@v0.1.4
@@ -67,6 +67,6 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_SSH_PORT }}
           script: |
-            docker-compose -f ~/docker/docker-compose-prod.yml pull
-            docker-compose -f ~/docker/docker-compose-prod.yml down
-            docker-compose -f ~/docker/docker-compose-prod.yml up -d
+            docker-compose -f ~/docker-compose-prod.yml pull
+            docker-compose -f ~/docker-compose-prod.yml down
+            docker-compose -f ~/docker-compose-prod.yml up -d
