@@ -45,6 +45,6 @@ jobs:
             sudo chmod +x /usr/local/bin/docker-compose
             # Assurez-vous de spécifier le chemin absolu correct de docker-compose-prod.yml sur le serveur distant
             ls -al
-            docker-compose -f /docker/docker-compose-prod.yml pull
-            docker-compose -f /docker/docker-compose-prod.yml down
-            docker-compose -f /docker/docker-compose-prod.yml up -d
+            docker-compose -f /docker-compose-prod.yml pull
+            docker-compose -f /docker-compose-prod.yml down
+            docker-compose -f /docker-compose-prod.yml up -d
