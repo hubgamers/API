@@ -28,7 +28,7 @@ services:
       - jwt.secret=${JWT_SECRET}
       - spring.mvc.pathmatch.matching-strategy=ant_path_matcher
       - cloudinary_url=${CLOUDINARY_URL}
-      - stripe.api.key=${STRIPE_API_KEY}
+      - stripe.apiKey=${STRIPE_API_KEY}
       - stripe.webhook.secret=${STRIPE_WEBHOOK_SECRET}
       - stripe.endpointSecret=${STRIPE_ENDPOINT_SECRET}
       - stripe.domain=${STRIPE_DOMAIN}
