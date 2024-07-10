@@ -45,6 +45,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_SSH_PORT }}
           script: |
-            docker-compose -f /docker-compose-prod.yml pull
-            docker-compose -f /docker-compose-prod.yml down
-            docker-compose -f /docker-compose-prod.yml up -d
+            ls -al
+            docker-compose -f ./docker-compose-prod.yml pull
+            docker-compose -f ./docker-compose-prod.yml down
+            docker-compose -f ./docker-compose-prod.yml up -d
