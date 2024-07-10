@@ -37,6 +37,15 @@ jobs:
           docker build -t ${{ secrets.DOCKER_USERNAME }}/your-spring-boot-app:latest .
           docker push ${{ secrets.DOCKER_USERNAME }}/your-spring-boot-app:latest
 
+      - name: Create directory on server
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_SSH_PORT }}
+          script: mkdir -p /home/root/docker
+
       - name: Copy docker-compose-prod.yml to server
         uses: appleboy/scp-action@master
         with:
@@ -45,7 +54,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_SSH_PORT }}
           source: "docker/docker-compose-prod.yml"  # Chemin local du fichier docker-compose-prod.yml
-          target: "~/docker-compose-prod.yml"  # Chemin sur le serveur distant (utilisation du répertoire home)
+          target: "/home/root/docker/docker-compose-prod.yml"  # Chemin sur le serveur distant
 
       - name: Install Docker Compose on server
         uses: appleboy/ssh-action@v0.1.4
@@ -67,6 +76,6 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_SSH_PORT }}
           script: |
-            docker-compose -f ~/docker-compose-prod.yml pull
-            docker-compose -f ~/docker-compose-prod.yml down
-            docker-compose -f ~/docker-compose-prod.yml up -d
+            docker-compose -f /home/root/docker/docker-compose-prod.yml pull
+            docker-compose -f /home/root/docker/docker-compose-prod.yml down
+            docker-compose -f /home/root/docker/docker-compose-prod.yml up -d
