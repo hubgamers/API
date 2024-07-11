@@ -13,6 +13,8 @@ services:
       - POSTGRES_PASSWORD=azerty
       - POSTGRES_USER=brietgame
       - POSTGRES_DB=hubgamers
+    networks:
+      - hubgamers-network
 
   spring-boot-app:
     container_name: spring-boot-app
@@ -41,4 +43,9 @@ services:
       - spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}
       - spring.datasource.driver-class-name=org.postgresql.Driver
       - spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
-    
+    networks:
+      - hubgamers-network
+
+networks:
+  hubgamers-network:
+    driver: bridge
