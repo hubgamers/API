@@ -26,7 +26,7 @@ public class Player {
 	public String avatar;
 
 	@Column(name = "visibility")
-	public boolean visibility;
+	public boolean visibility = true;
 	
 	/**
 	 * Un participant de tournoi soit une équipe ou un joueur

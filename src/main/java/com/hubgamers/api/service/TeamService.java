@@ -125,7 +125,7 @@ public class TeamService {
 		return teamRepository.save(team);
 	}
 
-	public Team updateTeam(TeamDTO teamDTO) throws AccountNotFoundException {
+	public Team updateTeam(TeamDTO teamDTO) {
 		Team team = getTeamById(teamDTO.getId());
 		if (team == null) {
 			throw new RuntimeException("Team not found");

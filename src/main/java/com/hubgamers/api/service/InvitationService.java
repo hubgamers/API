@@ -102,7 +102,9 @@ public class InvitationService {
         } else if (invitation.getType().equals(Invitation.InvitationType.JOIN_TEAM_ROSTER)) {
             TeamRoster teamRoster = teamRosterService.getTeamRosterById(invitation.getTeamId());
             Player player = playerService.getPlayerById(invitation.getPlayerId());
-            teamRoster.getPlayers().add(player);
+            List<Player> players = new ArrayList<Player>(List.copyOf(teamRoster.getPlayers()));
+            players.add(player);
+            teamRoster.setPlayers(players);
             teamRosterService.updateTeamRoster(teamRosterMapper.toDTO(teamRoster));
         }
         return invitation;

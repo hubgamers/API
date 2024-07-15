@@ -1,9 +1,7 @@
 package com.hubgamers.api.repository;
 
-import com.hubgamers.api.model.Player;
 import com.hubgamers.api.model.TeamRoster;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
