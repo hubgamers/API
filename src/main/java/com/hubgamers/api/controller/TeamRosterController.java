@@ -33,6 +33,11 @@ public class TeamRosterController {
 	public ResponseJson<List<TeamRoster>> getAllTeamNames(@PathVariable String name) {
 		return new ResponseJson<>(teamRosterService.getAllTeamRosterNames(name), HttpStatus.OK.value());
 	}
+	
+	@GetMapping("/player/{playerId}")
+	public ResponseJson<List<TeamRoster>> getTeamRostersByPlayerId(@PathVariable Long playerId) {
+		return new ResponseJson<>(teamRosterService.getTeamRostersByPlayerId(playerId), HttpStatus.OK.value());
+	}
 
 	/**
 	 * Liste tous les rosters de toutes mes équipes dans le dashboard

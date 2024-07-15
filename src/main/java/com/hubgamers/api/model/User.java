@@ -30,23 +30,28 @@ public class User {
 	@JsonIgnore
 	@Column(name = "refresh_token")
 	public String refreshToken;
-	
+
+	@JsonIgnore
 	@NotNull
 	@Column(name = "email")
 	public String email;
-	
+
+	@JsonIgnore
 	@Column(name = "roles")
 	public List<Role> roles;
 	
 	@Column(name = "avatar")
 	public String avatar;
-	
+
+	@JsonIgnore
 	@Column(name = "stripe_session_id")
 	public String stripeSessionId;
-	
+
+	@JsonIgnore
 	@Column(name = "stripe_price_id")
 	public String stripePriceId;
-	
+
+	@JsonIgnore
 	@Column(name = "stripe_subscription_id")
 	public String stripeSubscriptionId;
 }
