@@ -1,12 +1,10 @@
 package com.hubgamers.api.model.dto;
 
 import com.hubgamers.api.model.*;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -23,13 +21,9 @@ public class TeamDTO {
 	
 	public String description;
 	
-	public boolean visibility;
-
 	public TeamRoster.PaidType paidType = TeamRoster.PaidType.FREE;
 	
-	public Region region;
-	
-	public List<PlayerDTO> players = new ArrayList<>();
+	public List<UserDTO> users;
 	
 	@NotBlank
 	public Long organizerId;
@@ -37,6 +31,4 @@ public class TeamDTO {
 	public String logo;
 	
 	public String banner;
-	
-	public SocialMedia socialMedia;
 }

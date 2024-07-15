@@ -16,6 +16,4 @@ public class PlayerDTO {
 	public Long userId;
 	
 	public String avatar;
-
-	public boolean visibility;
 }

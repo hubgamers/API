@@ -1,12 +1,14 @@
 package com.hubgamers.api.service;
 
 import com.hubgamers.api.mapper.TeamRosterMapper;
+import com.hubgamers.api.model.Player;
 import com.hubgamers.api.model.TeamRoster;
 import com.hubgamers.api.model.dto.TeamRosterDTO;
 import com.hubgamers.api.repository.TeamRosterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.login.AccountNotFoundException;
 import java.util.List;
 
 @Service
@@ -18,7 +20,9 @@ public class TeamRosterService {
 
 	@Autowired
 	private UserService userService;
-	
+	@Autowired
+	private PlayerService playerService;
+
 	public TeamRosterService(TeamRosterRepository teamRosterRepository) {
 		this.teamRosterRepository = teamRosterRepository;
 	}
@@ -37,6 +41,10 @@ public class TeamRosterService {
 	
 	public List<TeamRoster> getAllTeamRosterNames(String name) {
 		return teamRosterRepository.findAllByNameLike(name);
+	}
+	
+	public List<TeamRoster> getTeamRostersByPlayerId(Long playerId) {
+		return teamRosterRepository.findByPlayersId(playerId);
 	}
 	
 	public List<TeamRoster> getMyTeamRosters() {

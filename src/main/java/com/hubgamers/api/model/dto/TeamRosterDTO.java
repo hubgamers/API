@@ -1,7 +1,10 @@
 package com.hubgamers.api.model.dto;
 
+import com.hubgamers.api.model.Player;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -27,4 +30,6 @@ public class TeamRosterDTO {
 	private String logo;
 	
 	private String banner;
+
+	public List<Player> players;
 }

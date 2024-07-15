@@ -65,8 +65,11 @@ public class TeamService {
 	}
 	
 	public List<Team> getMyTeams() {
-		Long organizerId = userService.getUserConnected().getId();
-		return teamRepository.findAllByOrganizerId(organizerId);
+		List<Team> teamsOwned = teamRepository.findAllByOrganizerId(userService.getUserConnected().getId());
+		List<Team> teamsJoined = teamRepository.findByUsersId(userService.getUserConnected().getId());
+		return new ArrayList<>(teamsOwned) {{
+			addAll(teamsJoined);
+		}};
 	}
 	
 	public Team getTeamById(Long id) {
@@ -122,18 +125,10 @@ public class TeamService {
 		return teamRepository.save(team);
 	}
 
-	public Team updateTeam(TeamDTO teamDTO) throws AccountNotFoundException {
-		if (!teamDTO.getPlayers().isEmpty()) {
-			for (PlayerDTO playerDTO : teamDTO.getPlayers()) {
-				int index = teamDTO.getPlayers().indexOf(playerDTO);
-				if (playerDTO.getId() != null) {
-					Player playerDb = playerService.getPlayerById(playerDTO.getId());
-					playerDTO = playerMapper.toDTO(playerDb);
-					// Remplacer à l'index
-					teamDTO.getPlayers().set(index, playerDTO);
-					System.out.println("playerDTO = " + playerDTO);
-				}
-			}
+	public Team updateTeam(TeamDTO teamDTO) {
+		Team team = getTeamById(teamDTO.getId());
+		if (team == null) {
+			throw new RuntimeException("Team not found");
 		}
 		return teamRepository.save(teamMapper.toEntity(teamDTO));
 	}
